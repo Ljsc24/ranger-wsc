@@ -263,7 +263,7 @@ tbody td{padding:.58rem .8rem;color:var(--white);vertical-align:middle;}
       <div class="login-badge">R</div>
       <div class="login-title">CONTROL DE PERSONAL<br>RANGER WSC</div>
       <div class="login-sub">WELL SERVICES CAVALLINO · ANZOÁTEGUI</div>
-      <div class="login-ver" id="loginVer">v4.2.0</div>
+      <div class="login-ver" id="loginVer">v4.2.1</div>
     </div>
     <div class="login-form">
       <div id="loginErr" class="login-err">Usuario o contraseña incorrectos</div>
@@ -402,7 +402,7 @@ tbody td{padding:.58rem .8rem;color:var(--white);vertical-align:middle;}
       <div class="form-grid">
         <div class="form-group form-full"><label class="form-label">Nombre Completo</label><input class="form-input" id="pName" placeholder="Nombre"/></div>
         <div class="form-group"><label class="form-label">Línea</label><select class="form-select" id="pLine"></select></div>
-        <div class="form-group"><label class="form-label">Rol</label><select class="form-select" id="pRole"><option>Líder de Equipo</option><option>Operador</option><option>Ayudante</option><option>Mecánico</option><option>Motorista</option></select></div>
+        <div class="form-group"><label class="form-label">Rol</label><select class="form-select" id="pRole"><option>Coordinador</option><option>Supervisor</option><option>Líder de Equipo</option><option>Operador</option><option>Ayudante</option><option>Mecánico</option><option>Motorista</option></select></div>
         <div class="form-group"><label class="form-label">Guardia</label><select class="form-select" id="pGuardia"><option value="7x7">7x7</option><option value="11x11">11x11</option></select></div>
         <div class="form-group"><label class="form-label">Turno</label><select class="form-select" id="pTurno"><option value="Diurna">Diurna</option><option value="Nocturna">Nocturna</option></select></div>
         <div class="form-group"><label class="form-label">Días Libres</label><input class="form-input" id="pDias" type="number" min="0" max="30" placeholder="0"/></div>
@@ -454,7 +454,7 @@ tbody td{padding:.58rem .8rem;color:var(--white);vertical-align:middle;}
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getDatabase, ref, set, get, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-const APP_VERSION = "4.2.0";
+const APP_VERSION = "4.2.1";
 const VERSION_URL = "https://ljsc24.github.io/ranger-wsc/version.json";
 
 const firebaseConfig = {
