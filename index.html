@@ -435,6 +435,116 @@ tbody td{padding:.55rem .8rem;color:var(--white);vertical-align:middle;}
 ::-webkit-scrollbar{width:4px;height:4px;}
 ::-webkit-scrollbar-track{background:var(--s1);}
 ::-webkit-scrollbar-thumb{background:var(--gold-d);border-radius:3px;}
+
+/* ── V5.1 MODERN ENHANCEMENTS ─────────────────────────────────────────── */
+
+/* Glassmorphism cards */
+.stat-card {
+  background: linear-gradient(135deg, rgba(255,255,255,.035) 0%, rgba(255,255,255,.01) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(201,168,76,.2);
+  box-shadow: 0 4px 24px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.06);
+  transition: all .25s cubic-bezier(.4,0,.2,1);
+}
+.stat-card:hover {
+  border-color: rgba(201,168,76,.5);
+  box-shadow: 0 8px 32px rgba(0,0,0,.5), 0 0 0 1px rgba(201,168,76,.15), inset 0 1px 0 rgba(255,255,255,.08);
+  transform: translateY(-3px);
+}
+.stat-value { text-shadow: 0 0 20px rgba(201,168,76,.4); }
+
+/* Better line cards */
+.line-card {
+  background: linear-gradient(160deg, rgba(255,255,255,.03) 0%, rgba(0,0,0,.2) 100%);
+  box-shadow: 0 2px 20px rgba(0,0,0,.3);
+  transition: all .28s cubic-bezier(.4,0,.2,1);
+}
+.line-card:hover {
+  box-shadow: 0 12px 40px rgba(0,0,0,.5), 0 0 0 1px rgba(201,168,76,.3);
+  transform: translateY(-3px);
+}
+
+/* Crew member glow on hover */
+.crew-member:hover { box-shadow: inset 0 0 0 1px rgba(201,168,76,.25); }
+.avatar-leader { box-shadow: 0 0 12px rgba(201,168,76,.3); }
+
+/* Nav tabs modernized */
+.nav-tab { position: relative; overflow: hidden; }
+.nav-tab::after { content:''; position:absolute; bottom:0; left:50%; right:50%; height:2px; background:var(--gold); transition: all .25s ease; }
+.nav-tab.active::after { left:0; right:0; }
+.nav-tab.active { border-bottom: none !important; }
+
+/* Header glass */
+header { backdrop-filter: blur(20px); background: rgba(8,8,8,.92) !important; }
+
+/* Guardia tabs pill style */
+.gtab {
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(201,168,76,.15);
+  transition: all .2s cubic-bezier(.4,0,.2,1);
+  font-size: .72em;
+}
+.gtab:hover { background: rgba(201,168,76,.08); transform: translateY(-1px); }
+.gtab.active {
+  background: linear-gradient(135deg, rgba(139,105,20,.4), rgba(201,168,76,.2));
+  border-color: rgba(201,168,76,.6);
+  box-shadow: 0 2px 12px rgba(201,168,76,.2), inset 0 1px 0 rgba(255,255,255,.1);
+}
+
+/* Table rows */
+tbody tr { transition: all .15s ease; }
+tbody tr:hover { background: rgba(201,168,76,.06) !important; box-shadow: inset 2px 0 0 var(--gold); }
+
+/* Modal glass */
+.modal {
+  background: rgba(20,20,20,.95) !important;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 24px 60px rgba(0,0,0,.7), 0 0 0 1px rgba(201,168,76,.15) !important;
+}
+
+/* Conflict banner pulse */
+@keyframes conflictPulse { 0%,100%{box-shadow:0 0 0 0 rgba(192,57,43,.4);} 50%{box-shadow:0 0 0 6px rgba(192,57,43,0);} }
+.conflict-banner { animation: conflictPulse 2.5s infinite; }
+
+/* Salidas grid cards */
+.salida-card {
+  transition: all .22s cubic-bezier(.4,0,.2,1) !important;
+}
+.salida-card:hover { transform: translateY(-3px) !important; box-shadow: 0 8px 28px rgba(0,0,0,.5) !important; }
+
+/* Rotation table sticky header */
+.rot-table thead th { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(10px); }
+
+/* Chofer badge */
+.badge-chofer { background: rgba(52,152,219,.2); color:#5DADE2; border:1px solid rgba(52,152,219,.5); }
+
+/* Conflict highlight in rotation table */
+.rot-conflict-day { background: rgba(192,57,43,.12) !important; }
+.rot-conflict-day .rot-cell-libre { box-shadow: 0 0 0 2px rgba(192,57,43,.6) inset !important; }
+
+/* Update banner */
+#updateBanner {
+  background: linear-gradient(135deg, rgba(20,15,0,.97), rgba(35,25,0,.97)) !important;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0,0,0,.5) !important;
+}
+
+/* Login screen */
+.login-box {
+  background: rgba(20,18,14,.96) !important;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 32px 80px rgba(0,0,0,.8), 0 0 0 1px rgba(201,168,76,.15) !important;
+}
+
+/* Form inputs */
+.form-input:focus, .form-select:focus, .lf-input:focus, .search-input:focus {
+  box-shadow: 0 0 0 2px rgba(201,168,76,.15);
+}
+
+/* Buttons */
+.btn-gold { box-shadow: 0 2px 12px rgba(201,168,76,.35), inset 0 1px 0 rgba(255,255,255,.15); }
+.btn-gold:hover { box-shadow: 0 6px 20px rgba(201,168,76,.45), inset 0 1px 0 rgba(255,255,255,.2) !important; }
+
 </style>
 </head>
 <body>
@@ -457,7 +567,7 @@ tbody td{padding:.55rem .8rem;color:var(--white);vertical-align:middle;}
         <div class="login-badge"><div class="login-badge-inner">R</div></div>
         <div class="login-title">CONTROL DE PERSONAL<br>RANGER WSC</div>
         <div class="login-sub">Well Services Cavallino · Anzoátegui</div>
-        <div class="login-ver" id="loginVer">v5.0.0</div>
+        <div class="login-ver" id="loginVer">v5.1.0</div>
       </div>
       <div class="login-form">
         <div id="loginErr" class="login-err">⚠ Usuario o contraseña incorrectos</div>
@@ -650,7 +760,7 @@ tbody td{padding:.55rem .8rem;color:var(--white);vertical-align:middle;}
         <div class="form-group"><label class="form-label">Rol</label>
           <select class="form-select" id="pRole">
             <option>Coordinador</option><option>Supervisor</option><option>Líder de Equipo</option>
-            <option>Operador</option><option>Ayudante</option><option>Mecánico</option>
+            <option>Chofer</option><option>Operador</option><option>Ayudante</option><option>Mecánico</option>
             <option>Motorista</option><option>Chofer</option>
           </select>
         </div>
@@ -722,7 +832,7 @@ tbody td{padding:.55rem .8rem;color:var(--white);vertical-align:middle;}
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getDatabase, ref, set, get, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-const APP_VERSION = "5.0.0";
+const APP_VERSION = "5.1.0";
 const VERSION_URL = "https://ljsc24.github.io/ranger-wsc/version.json";
 const FB = { apiKey:"AIzaSyBVkbiHbEZxIiTTx4gdc2k1AL_gfPXDA-A",authDomain:"ranger-wsc.firebaseapp.com",databaseURL:"https://ranger-wsc-default-rtdb.firebaseio.com",projectId:"ranger-wsc",storageBucket:"ranger-wsc.firebasestorage.app",messagingSenderId:"359053578987",appId:"1:359053578987:web:8166d95f2532dd49bae4ae" };
 const fbApp = initializeApp(FB);
