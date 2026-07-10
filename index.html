@@ -773,7 +773,7 @@ tbody tr:hover { background: rgba(201,168,76,.06) !important; box-shadow: inset 
         <div class="login-badge"><div class="login-badge-inner">R</div></div>
         <div class="login-title">CONTROL DE PERSONAL<br>RANGER WSC</div>
         <div class="login-sub">Well Services Cavallino · Anzoátegui</div>
-        <div class="login-ver" id="loginVer">v5.3.0</div>
+        <div class="login-ver" id="loginVer">v5.3.1</div>
       </div>
       <div class="login-form">
         <div id="loginErr" class="login-err">⚠ Usuario o contraseña incorrectos</div>
@@ -936,7 +936,7 @@ tbody tr:hover { background: rgba(201,168,76,.06) !important; box-shadow: inset 
   <button class="nav-tab" data-view="lines" onclick="switchView('lines')">⚙️ Líneas</button>
   <button class="nav-tab" data-view="personnel" onclick="switchView('personnel')">👷 Personal</button>
   <button class="nav-tab hidden" id="tabProfile" data-view="profile" onclick="switchView('profile')">👤 Mi Perfil</button>
-  <button class="nav-tab hidden" id="tabUsers" data-view="users" onclick="switchView('users')">👑 Usuarios</button>
+  <button class="nav-tab hidden" id="tabUsers" data-view="users" onclick="switchView('users')">👑 Usuarios <span id="pendingNavBadge" style="display:none;background:#F0A500;color:#000;border-radius:10px;padding:0 5px;font-size:.65em;font-weight:700;margin-left:2px;"></span></button>
 </nav>
 <main>
 
@@ -945,6 +945,7 @@ tbody tr:hover { background: rgba(201,168,76,.06) !important; box-shadow: inset 
   <div class="page-title">
     <div><h2>Panel de Control</h2><p>RESUMEN OPERACIONAL · WELL SERVICES DIVISION</p></div>
   </div>
+  <div id="pendingAlert" style="display:none;margin-bottom:.85rem;"></div>
   <div class="filters-bar">
     <span class="filter-label">Filtrar:</span>
     <select class="filter-select" id="dashFilterLine" onchange="renderDashboard()"><option value="">Todos los Equipos</option></select>
@@ -1327,7 +1328,7 @@ tbody tr:hover { background: rgba(201,168,76,.06) !important; box-shadow: inset 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getDatabase, ref, set, get, onValue, update } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-const APP_VERSION = "5.3.0";
+const APP_VERSION = "5.3.1";
 const VERSION_URL = "https://ljsc24.github.io/ranger-wsc/version.json";
 const FB = { apiKey:"AIzaSyBVkbiHbEZxIiTTx4gdc2k1AL_gfPXDA-A",authDomain:"ranger-wsc.firebaseapp.com",databaseURL:"https://ranger-wsc-default-rtdb.firebaseio.com",projectId:"ranger-wsc",storageBucket:"ranger-wsc.firebasestorage.app",messagingSenderId:"359053578987",appId:"1:359053578987:web:8166d95f2532dd49bae4ae" };
 const fbApp = initializeApp(FB);
@@ -1663,6 +1664,25 @@ function fmtDate(d){ return d.toLocaleDateString('es-VE',{weekday:'short',day:'n
 
 // ── DASHBOARD ────────────────────────────────────────────────
 window.renderDashboard=function(){
+  // Show pending alert for master
+  const alertEl = document.getElementById('pendingAlert');
+  if (alertEl && currentUser?.role === 'master') {
+    const pendCount = (appData.pendingUsers||[]).filter(u=>u.status==='pending').length;
+    if (pendCount > 0) {
+      alertEl.style.display = 'block';
+      alertEl.innerHTML = `
+      <div onclick="switchView('users')" style="cursor:pointer;background:linear-gradient(135deg,rgba(230,126,34,.15),rgba(139,105,20,.08));border:1px solid rgba(230,126,34,.4);border-radius:8px;padding:.75rem 1rem;display:flex;align-items:center;gap:.75rem;">
+        <span style="font-size:1.3rem;">⏳</span>
+        <div>
+          <div style="font-size:.82em;font-weight:700;color:#F0A500;letter-spacing:.05em;">${pendCount} SOLICITUD${pendCount>1?'ES':''} PENDIENTE${pendCount>1?'S':''} DE APROBACIÓN</div>
+          <div style="font-size:.68em;color:var(--text-dim);margin-top:1px;">Toca aquí para ir a Usuarios y revisar</div>
+        </div>
+        <span style="margin-left:auto;font-size:1rem;color:#F0A500;">→</span>
+      </div>`;
+    } else {
+      alertEl.style.display = 'none';
+    }
+  }
   const fl=document.getElementById('dashFilterLine')?.value||'';
   const fg=document.getElementById('dashFilterGuardia')?.value||'';
   const ft=document.getElementById('dashFilterTurno')?.value||'';
@@ -1858,8 +1878,19 @@ window.confirmDelUser=function(id){ const u=appData.users.find(x=>x.id===id);if(
 // ── INIT ──────────────────────────────────────────────────────
 loadCache();
 if(navigator.onLine){
-  get(ref(db,'data/users')).then(s=>{if(s.exists()){appData.users=Object.values(s.val());saveCache();}}).catch(()=>{});
-  get(ref(db,'pendingUsers')).then(s=>{if(s.exists()){appData.pendingUsers=Object.values(s.val());saveCache();}}).catch(()=>{});
+  // Pre-load ALL data before login so register form has lines available
+  get(ref(db,'data')).then(s=>{
+    if(s.exists()){
+      const d=s.val();
+      appData.lines     = d.lines     ? Object.values(d.lines)     : appData.lines;
+      appData.users     = d.users     ? Object.values(d.users)     : appData.users;
+      appData.personnel = d.personnel ? Object.values(d.personnel) : appData.personnel;
+      saveCache();
+    }
+  }).catch(()=>{});
+  get(ref(db,'pendingUsers')).then(s=>{
+    if(s.exists()){appData.pendingUsers=Object.values(s.val());saveCache();}
+  }).catch(()=>{});
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -1868,18 +1899,35 @@ if(navigator.onLine){
 let regCurrentStep = 1;
 
 window.openRegister = function() {
-  // Populate line select with current lines
-  const sel = document.getElementById('regLine');
-  sel.innerHTML = appData.lines.map(l => `<option value="${l.id}">${l.name}</option>`).join('');
-  if (!sel.innerHTML) sel.innerHTML = '<option value="">Sin líneas aún</option>';
-  // Set min date to today
-  document.getElementById('regFecha').min = new Date().toISOString().split('T')[0];
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('registerScreen').classList.add('open');
   regCurrentStep = 1;
   showRegStep(1);
   document.getElementById('regErr').classList.remove('show');
   ['regName','regCedula','regUser','regPass','regPass2'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('loginScreen').style.display = 'none';
-  document.getElementById('registerScreen').classList.add('open');
+  document.getElementById('regFecha').min = new Date().toISOString().split('T')[0];
+
+  // Populate lines — fetch fresh from Firebase if online
+  function fillLines() {
+    const sel = document.getElementById('regLine');
+    if (appData.lines && appData.lines.length > 0) {
+      sel.innerHTML = appData.lines.map(l => `<option value="${l.id}">${l.name}</option>`).join('');
+    } else {
+      sel.innerHTML = '<option value="">Cargando líneas...</option>';
+    }
+  }
+  fillLines();
+
+  // Always try to fetch fresh lines from Firebase
+  if (navigator.onLine) {
+    get(ref(db, 'data/lines')).then(snap => {
+      if (snap.exists()) {
+        appData.lines = Object.values(snap.val());
+        saveCache();
+        fillLines();
+      }
+    }).catch(() => {});
+  }
 };
 
 window.closeRegister = function() {
@@ -1985,6 +2033,12 @@ function renderPendingUsers() {
   const list    = document.getElementById('pendingList');
   if (!section || !list) return;
   const pending = (appData.pendingUsers || []).filter(u => u.status === 'pending');
+  // Update nav badge
+  const navBadge = document.getElementById('pendingNavBadge');
+  if (navBadge) {
+    if (pending.length > 0) { navBadge.textContent = pending.length; navBadge.style.display = 'inline'; }
+    else { navBadge.style.display = 'none'; }
+  }
   if (!pending.length) { section.style.display = 'none'; return; }
   section.style.display = 'block';
   list.innerHTML = pending.map(u => {
