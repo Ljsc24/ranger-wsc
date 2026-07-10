@@ -545,6 +545,64 @@ tbody tr:hover { background: rgba(201,168,76,.06) !important; box-shadow: inset 
 .btn-gold { box-shadow: 0 2px 12px rgba(201,168,76,.35), inset 0 1px 0 rgba(255,255,255,.15); }
 .btn-gold:hover { box-shadow: 0 6px 20px rgba(201,168,76,.45), inset 0 1px 0 rgba(255,255,255,.2) !important; }
 
+
+/* ── REGISTER SCREEN ───────────────────────────────────────── */
+#registerScreen{position:fixed;inset:0;background:var(--bg);z-index:1999;display:none;align-items:center;justify-content:center;padding:1rem;overflow-y:auto;}
+#registerScreen.open{display:flex;}
+.reg-box{width:100%;max-width:480px;background:rgba(20,18,14,.97);border:1px solid var(--border);border-radius:14px;overflow:hidden;position:relative;box-shadow:0 32px 80px rgba(0,0,0,.8);}
+.reg-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.reg-header{padding:1.4rem 1.6rem 1rem;text-align:center;border-bottom:1px solid var(--border);}
+.reg-title{font-family:'Cinzel',serif;font-size:.95rem;font-weight:700;color:var(--gold-l);letter-spacing:.1em;}
+.reg-sub{font-size:.68rem;color:var(--text-dim);letter-spacing:.15em;margin-top:.3rem;}
+.reg-body{padding:1.4rem 1.6rem;display:flex;flex-direction:column;gap:.75rem;}
+.reg-step{display:none;}
+.reg-step.active{display:flex;flex-direction:column;gap:.75rem;animation:fadeIn .22s ease;}
+.reg-step-title{font-family:'Cinzel',serif;font-size:.78rem;color:var(--gold);letter-spacing:.1em;padding-bottom:.5rem;border-bottom:1px solid var(--border);}
+.reg-footer{padding:1rem 1.6rem;border-top:1px solid var(--border);display:flex;gap:.6rem;justify-content:space-between;align-items:center;}
+.reg-steps-indicator{display:flex;gap:.4rem;align-items:center;}
+.reg-dot{width:7px;height:7px;border-radius:50%;background:var(--s5);border:1px solid var(--border);transition:all .2s;}
+.reg-dot.active{background:var(--gold);border-color:var(--gold);box-shadow:0 0 8px var(--gold-glow);}
+.reg-err{background:rgba(192,57,43,.12);border:1px solid rgba(192,57,43,.35);border-radius:4px;padding:.45rem .8rem;font-size:.76rem;color:#E74C3C;display:none;}
+.reg-err.show{display:block;}
+.login-register-link{text-align:center;margin-top:.5rem;}
+.login-register-link button{background:none;border:none;color:var(--gold);font-family:'Rajdhani',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;letter-spacing:.08em;text-decoration:underline;text-underline-offset:3px;}
+.login-register-link button:hover{color:var(--gold-l);}
+
+/* ── PENDING APPROVAL SCREEN ───────────────────────────────── */
+#pendingScreen{position:fixed;inset:0;background:var(--bg);z-index:1998;display:none;align-items:center;justify-content:center;padding:1.5rem;}
+#pendingScreen.open{display:flex;}
+.pending-box{width:100%;max-width:380px;background:rgba(20,18,14,.97);border:1px solid var(--border);border-radius:14px;padding:2rem;text-align:center;box-shadow:0 32px 80px rgba(0,0,0,.8);}
+.pending-icon{font-size:2.5rem;margin-bottom:.8rem;}
+.pending-title{font-family:'Cinzel',serif;font-size:.95rem;color:var(--gold-l);letter-spacing:.1em;margin-bottom:.5rem;}
+.pending-msg{font-size:.8rem;color:var(--text-dim);line-height:1.6;margin-bottom:1.2rem;}
+
+/* ── MY PROFILE VIEW ───────────────────────────────────────── */
+.profile-card{background:rgba(20,18,14,.8);border:1px solid var(--border);border-radius:12px;overflow:hidden;max-width:560px;margin:0 auto;}
+.profile-head{padding:1.5rem;background:linear-gradient(135deg,rgba(139,105,20,.15),rgba(201,168,76,.05));border-bottom:1px solid var(--border);display:flex;align-items:center;gap:1.1rem;}
+.profile-av{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--gold-d),var(--gold));display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:1.5rem;font-weight:700;color:var(--bg);box-shadow:0 0 20px var(--gold-glow);flex-shrink:0;}
+.profile-name{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:700;color:var(--white);}
+.profile-role{font-size:.72rem;color:var(--text-dim);letter-spacing:.12em;margin-top:2px;}
+.profile-body{padding:1.3rem 1.5rem;display:flex;flex-direction:column;gap:.85rem;}
+.profile-row{display:flex;align-items:center;justify-content:space-between;padding:.6rem 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.profile-key{font-size:.68rem;color:var(--text-dim);letter-spacing:.12em;text-transform:uppercase;}
+.profile-val{font-size:.85rem;font-weight:600;color:var(--white);}
+.profile-editable{display:flex;align-items:center;gap:.5rem;}
+.notif-banner{background:linear-gradient(135deg,rgba(201,168,76,.12),rgba(139,105,20,.08));border:1px solid rgba(201,168,76,.3);border-radius:8px;padding:.85rem 1rem;display:flex;align-items:flex-start;gap:.7rem;margin-bottom:1rem;}
+.notif-banner .nb-icon{font-size:1.4rem;flex-shrink:0;}
+.notif-banner .nb-text{font-size:.78rem;line-height:1.5;color:var(--text);}
+.notif-banner .nb-text strong{color:var(--gold-l);}
+.notif-actions{display:flex;gap:.5rem;margin-top:.6rem;flex-wrap:wrap;}
+
+/* ── PENDING USERS in admin ────────────────────────────────── */
+.pending-badge{background:rgba(230,126,34,.2);color:#F0A500;border:1px solid rgba(230,126,34,.5);border-radius:4px;padding:.1rem .4rem;font-size:.62rem;font-weight:700;letter-spacing:.08em;}
+.pending-section{margin-bottom:1.3rem;}
+.pending-list{display:flex;flex-direction:column;gap:.5rem;}
+.pending-item{background:rgba(230,126,34,.06);border:1px solid rgba(230,126,34,.2);border-radius:8px;padding:.75rem 1rem;display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;}
+.pending-item-info{flex:1;min-width:180px;}
+.pending-item-name{font-size:.86rem;font-weight:600;color:var(--white);}
+.pending-item-sub{font-size:.68rem;color:var(--text-dim);margin-top:1px;}
+.pending-actions{display:flex;gap:.4rem;}
+
 </style>
 </head>
 <body>
@@ -567,7 +625,7 @@ tbody tr:hover { background: rgba(201,168,76,.06) !important; box-shadow: inset 
         <div class="login-badge"><div class="login-badge-inner">R</div></div>
         <div class="login-title">CONTROL DE PERSONAL<br>RANGER WSC</div>
         <div class="login-sub">Well Services Cavallino · Anzoátegui</div>
-        <div class="login-ver" id="loginVer">v5.1.0</div>
+        <div class="login-ver" id="loginVer">v5.2.0</div>
       </div>
       <div class="login-form">
         <div id="loginErr" class="login-err">⚠ Usuario o contraseña incorrectos</div>
@@ -581,8 +639,111 @@ tbody tr:hover { background: rgba(201,168,76,.06) !important; box-shadow: inset 
         </div>
         <button class="login-btn" onclick="doLogin()">INGRESAR →</button>
       </div>
+      <div class="login-register-link"><button onclick="openRegister()">¿Eres empleado? Regístrate aquí</button></div>
       <div class="login-foot">DESARROLLADO POR LJSC · RANGER WSC © 2025</div>
     </div>
+  </div>
+</div>
+
+
+<!-- REGISTER SCREEN -->
+<div id="registerScreen">
+  <div class="reg-box">
+    <div class="reg-header">
+      <div class="reg-title">REGISTRARME</div>
+      <div class="reg-sub">CONTROL DE PERSONAL RANGER WSC</div>
+    </div>
+    <div class="reg-body">
+      <div id="regErr" class="reg-err"></div>
+
+      <!-- STEP 1: Personal data -->
+      <div class="reg-step active" id="regStep1">
+        <div class="reg-step-title">PASO 1 — DATOS PERSONALES</div>
+        <div class="form-group">
+          <label class="form-label">Nombre Completo</label>
+          <input class="form-input" id="regName" placeholder="Ej: Carlos Rodríguez"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Cédula de Identidad</label>
+          <input class="form-input" id="regCedula" placeholder="V-00.000.000"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Línea de Servicio</label>
+          <select class="form-select" id="regLine"></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Cargo / Rol</label>
+          <select class="form-select" id="regRole">
+            <option>Coordinador</option><option>Supervisor</option>
+            <option>Líder de Equipo</option><option>Chofer</option>
+            <option>Operador</option><option>Ayudante</option>
+            <option>Mecánico</option><option>Motorista</option>
+          </select>
+        </div>
+        <div class="form-grid" style="grid-template-columns:1fr 1fr;gap:.65rem;">
+          <div class="form-group">
+            <label class="form-label">Guardia</label>
+            <select class="form-select" id="regGuardia">
+              <option value="7x7">7x7</option>
+              <option value="11x11">11x11</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Turno</label>
+            <select class="form-select" id="regTurno">
+              <option value="Diurna">☀️ Diurna</option>
+              <option value="Nocturna">🌙 Nocturna</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Fecha Próxima Salida</label>
+          <input class="form-input" id="regFecha" type="date"/>
+        </div>
+      </div>
+
+      <!-- STEP 2: Credentials -->
+      <div class="reg-step" id="regStep2">
+        <div class="reg-step-title">PASO 2 — CREAR ACCESO</div>
+        <div class="form-group">
+          <label class="form-label">Nombre de Usuario</label>
+          <input class="form-input" id="regUser" placeholder="Sin espacios, ej: carlos.rodriguez"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Contraseña</label>
+          <input class="form-input" id="regPass" type="password" placeholder="Mínimo 6 caracteres"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Confirmar Contraseña</label>
+          <input class="form-input" id="regPass2" type="password" placeholder="Repite la contraseña"/>
+        </div>
+        <div style="background:rgba(201,168,76,.07);border:1px solid var(--border);border-radius:6px;padding:.7rem .9rem;font-size:.72rem;color:var(--text-dim);line-height:1.5;">
+          ⚠ Tu registro quedará <strong style="color:var(--gold)">pendiente de aprobación</strong> por el supervisor. Recibirás acceso una vez aprobado.
+        </div>
+      </div>
+
+    </div>
+    <div class="reg-footer">
+      <div class="reg-steps-indicator">
+        <div class="reg-dot active" id="rdot1"></div>
+        <div class="reg-dot" id="rdot2"></div>
+      </div>
+      <div style="display:flex;gap:.5rem;">
+        <button class="btn btn-outline btn-sm" id="regBackBtn" onclick="regBack()" style="display:none;">← Atrás</button>
+        <button class="btn btn-outline btn-sm" onclick="closeRegister()">Cancelar</button>
+        <button class="btn btn-gold btn-sm" id="regNextBtn" onclick="regNext()">Siguiente →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PENDING APPROVAL SCREEN -->
+<div id="pendingScreen">
+  <div class="pending-box">
+    <div class="pending-icon">⏳</div>
+    <div class="pending-title">REGISTRO ENVIADO</div>
+    <div class="pending-msg">Tu solicitud está <strong style="color:var(--gold)">pendiente de aprobación</strong> por el supervisor.<br><br>Una vez aprobado podrás ingresar con tu usuario y contraseña.<br><br>Vuelve a intentar ingresar más tarde.</div>
+    <button class="btn btn-outline" onclick="document.getElementById('pendingScreen').classList.remove('open');document.getElementById('loginScreen').style.display='flex';">Volver al Login</button>
   </div>
 </div>
 
@@ -616,6 +777,7 @@ tbody tr:hover { background: rgba(201,168,76,.06) !important; box-shadow: inset 
   <button class="nav-tab" data-view="guardias" onclick="switchView('guardias')">🔄 Guardias</button>
   <button class="nav-tab" data-view="lines" onclick="switchView('lines')">⚙️ Líneas</button>
   <button class="nav-tab" data-view="personnel" onclick="switchView('personnel')">👷 Personal</button>
+  <button class="nav-tab hidden" id="tabProfile" data-view="profile" onclick="switchView('profile')">👤 Mi Perfil</button>
   <button class="nav-tab hidden" id="tabUsers" data-view="users" onclick="switchView('users')">👑 Usuarios</button>
 </nav>
 <main>
@@ -721,7 +883,22 @@ tbody tr:hover { background: rgba(201,168,76,.06) !important; box-shadow: inset 
     <div><h2>Gestión de Usuarios</h2><p>ACCESOS Y ROLES DEL SISTEMA</p></div>
     <button class="btn btn-gold" onclick="openAddUser()">+ Nuevo Usuario</button>
   </div>
+  <div class="pending-section" id="pendingSection" style="display:none;">
+    <div class="section-divider"><h3>⏳ SOLICITUDES PENDIENTES</h3></div>
+    <div class="pending-list" id="pendingList"></div>
+  </div>
+  <div class="section-divider"><h3>USUARIOS ACTIVOS</h3></div>
   <div class="users-grid" id="usersGrid"></div>
+</div>
+
+
+<!-- MY PROFILE -->
+<div class="view" id="view-profile">
+  <div class="page-title">
+    <div><h2>Mi Perfil</h2><p>TUS DATOS Y CONFIGURACIÓN</p></div>
+  </div>
+  <div id="notifBanner"></div>
+  <div class="profile-card" id="profileCard"></div>
 </div>
 
 </main>
@@ -826,13 +1003,81 @@ tbody tr:hover { background: rgba(201,168,76,.06) !important; box-shadow: inset 
     <div class="modal-footer"><button class="btn btn-outline" onclick="closeModal('modalConfirm')">Cancelar</button><button class="btn btn-danger" id="confirmBtn">Eliminar</button></div>
   </div>
 </div>
+
+<!-- POSTPONE DATE MODAL -->
+<div class="modal-overlay" id="modalPostpone">
+  <div class="modal" style="max-width:360px;">
+    <div class="modal-header">
+      <span class="modal-title">📅 Posponer Salida</span>
+      <button class="modal-close" onclick="closeModal('modalPostpone')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:.8rem;color:var(--text-dim);margin-bottom:.9rem;line-height:1.5;">Indica tu nueva fecha de salida. Tu supervisor será notificado.</p>
+      <div class="form-group">
+        <label class="form-label">Nueva Fecha de Salida</label>
+        <input class="form-input" id="postponeDate" type="date"/>
+      </div>
+      <div class="form-group" style="margin-top:.6rem;">
+        <label class="form-label">Motivo (opcional)</label>
+        <input class="form-input" id="postponeReason" placeholder="Ej: Extensión de trabajo..."/>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modalPostpone')">Cancelar</button>
+      <button class="btn btn-gold" onclick="confirmPostpone()">Confirmar Postergación</button>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT PERSON PROFILE (master only) -->
+<div class="modal-overlay" id="modalEditProfile">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="editProfileTitle">Editar Empleado</span>
+      <button class="modal-close" onclick="closeModal('modalEditProfile')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group form-full"><label class="form-label">Nombre Completo</label><input class="form-input" id="epName"/></div>
+        <div class="form-group"><label class="form-label">Cédula</label><input class="form-input" id="epCedula"/></div>
+        <div class="form-group"><label class="form-label">Usuario</label><input class="form-input" id="epUsername"/></div>
+        <div class="form-group"><label class="form-label">Contraseña</label><input class="form-input" id="epPass" type="text"/></div>
+        <div class="form-group"><label class="form-label">Línea</label><select class="form-select" id="epLine"></select></div>
+        <div class="form-group"><label class="form-label">Cargo</label>
+          <select class="form-select" id="epRole">
+            <option>Coordinador</option><option>Supervisor</option><option>Líder de Equipo</option>
+            <option>Chofer</option><option>Operador</option><option>Ayudante</option><option>Mecánico</option><option>Motorista</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">Guardia</label>
+          <select class="form-select" id="epGuardia"><option value="7x7">7x7</option><option value="11x11">11x11</option></select>
+        </div>
+        <div class="form-group"><label class="form-label">Turno</label>
+          <select class="form-select" id="epTurno"><option value="Diurna">☀️ Diurna</option><option value="Nocturna">🌙 Nocturna</option></select>
+        </div>
+        <div class="form-group"><label class="form-label">Días Libres</label><input class="form-input" id="epDias" type="number" min="0" max="30"/></div>
+        <div class="form-group"><label class="form-label">Próxima Salida</label><input class="form-input" id="epFecha" type="date"/></div>
+        <div class="form-group form-full">
+          <label class="form-label" style="display:flex;align-items:center;gap:.5rem;">
+            <input type="checkbox" id="epEsChofer" style="accent-color:var(--gold);"> Es Chofer (para conflictos)
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modalEditProfile')">Cancelar</button>
+      <button class="btn btn-gold" onclick="saveEditProfile()">Guardar Cambios</button>
+    </div>
+  </div>
+</div>
+
 <div id="toast"></div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getDatabase, ref, set, get, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import { getDatabase, ref, set, get, onValue, update } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-const APP_VERSION = "5.1.0";
+const APP_VERSION = "5.2.0";
 const VERSION_URL = "https://ljsc24.github.io/ranger-wsc/version.json";
 const FB = { apiKey:"AIzaSyBVkbiHbEZxIiTTx4gdc2k1AL_gfPXDA-A",authDomain:"ranger-wsc.firebaseapp.com",databaseURL:"https://ranger-wsc-default-rtdb.firebaseio.com",projectId:"ranger-wsc",storageBucket:"ranger-wsc.firebasestorage.app",messagingSenderId:"359053578987",appId:"1:359053578987:web:8166d95f2532dd49bae4ae" };
 const fbApp = initializeApp(FB);
@@ -868,6 +1113,8 @@ function syncFB(){
   onValue(ref(db,'data'),snap=>{
     if(snap.exists()){const d=snap.val();appData.lines=d.lines?Object.values(d.lines):[];appData.personnel=d.personnel?Object.values(d.personnel):[];appData.users=d.users?Object.values(d.users):[];saveCache();renderAll();}
     setSyncDot('online');
+    syncPendingUsers();
+    listenMasterNotifications();
   },()=>setSyncDot('offline'));
 }
 function pushData(){
@@ -875,6 +1122,7 @@ function pushData(){
   if(!navigator.onLine)return;
   setSyncDot('syncing');
   set(ref(db,'data'),{lines:toObj(appData.lines,'id'),personnel:toObj(appData.personnel,'id'),users:toObj(appData.users,'id')}).then(()=>setSyncDot('online')).catch(()=>setSyncDot('offline'));
+  if(appData.pendingUsers?.length){set(ref(db,'pendingUsers'),toObj(appData.pendingUsers,'id')).catch(()=>{});}
 }
 function toObj(arr,k){const o={};arr.forEach(i=>o[i[k]]=i);return o;}
 
@@ -916,6 +1164,13 @@ window.doLogin=function(){
   if(u.toLowerCase()===MASTER.username.toLowerCase()&&p===MASTER.password){currentUser=MASTER;startApp();return;}
   const found=appData.users.find(x=>x.username.toLowerCase()===u.toLowerCase()&&x.password===p);
   if(found){currentUser=found;startApp();return;}
+  // Check if pending
+  const pending=(appData.pendingUsers||[]).find(x=>x.username?.toLowerCase()===u.toLowerCase()&&x.password===p);
+  if(pending){
+    document.getElementById('loginScreen').style.display='none';
+    document.getElementById('pendingScreen').classList.add('open');
+    return;
+  }
   document.getElementById('loginErr').classList.add('show');
 };
 document.getElementById('loginPass').addEventListener('keydown',e=>{if(e.key==='Enter')window.doLogin();});
@@ -930,6 +1185,12 @@ function startApp(){
   if(currentUser.role==='master')document.getElementById('tabUsers').classList.remove('hidden');
   loadCache();renderAll();
   if(navigator.onLine){setSyncDot('syncing');syncFB();checkVersion();}else setSyncDot('offline');
+  // Show profile tab for all non-master users
+  if(currentUser.role !== 'master') {
+    document.getElementById('tabProfile').classList.remove('hidden');
+  }
+  requestNotifPermission();
+  setTimeout(checkMyNotifications, 1500);
 }
 window.doLogout=function(){ currentUser=null;closeModal('modalUserMenu');document.getElementById('appShell').style.display='none';document.getElementById('loginScreen').style.display='flex';document.getElementById('loginUser').value='';document.getElementById('loginPass').value=''; };
 
@@ -942,7 +1203,7 @@ window.switchView=function(name){
   renderAll();
 };
 
-function renderAll(){ renderDashboard();renderGuardiasView();renderLinesGrid();renderPersonnelTable();renderUsersGrid();renderRotaciones();updateSelects(); }
+function renderAll(){ renderDashboard();renderGuardiasView();renderLinesGrid();renderPersonnelTable();renderUsersGrid();renderPendingUsers();renderProfile();renderRotaciones();updateSelects(); }
 
 function updateSelects(){
   const lo='<option value="">Todas las Líneas</option>'+appData.lines.map(l=>`<option value="${l.id}">${l.name}</option>`).join('');
@@ -1286,7 +1547,24 @@ window.renderPersonnelTable=function(){
 };
 
 // ── USERS ────────────────────────────────────────────────────
-function renderUsersGrid(){ const c=document.getElementById('usersGrid');if(!c)return;if(currentUser?.role!=='master'){c.innerHTML=`<div class="empty-state"><span class="ei">🔒</span><p>Acceso restringido</p></div>`;return;}c.innerHTML=[MASTER,...appData.users].map(u=>`<div class="user-card"><div class="uc-head"><div class="uc-av">${ini(u.fullname||u.username)}</div><div><div class="uc-name">${u.fullname||u.username}</div><div class="uc-role">${u.role.toUpperCase()}</div></div>${u.id!=='master'?`<div style="margin-left:auto;display:flex;gap:.25rem;"><button class="icon-btn" onclick="editUser('${u.id}')">✏️</button><button class="icon-btn del" onclick="confirmDelUser('${u.id}')">🗑</button></div>`:'<div style="margin-left:auto;"><span class="badge b-leader">MASTER</span></div>'}</div><div class="uc-body"><div class="uc-row"><span class="uc-key">Usuario</span><span style="font-size:.8em;font-weight:600;">${u.username}</span></div><div class="uc-row"><span class="uc-key">Rol</span><span class="badge b-leader">${u.role}</span></div>${u.id!=='master'?`<div><div class="uc-key" style="margin-bottom:.22rem;">Permisos</div><div style="display:flex;flex-wrap:wrap;gap:.2rem;">${Object.entries(u.perms||{}).filter(([,v])=>v).map(([k])=>`<span class="badge b-7x7">${k}</span>`).join('')}</div></div>`:''}</div></div>`).join(''); }
+function renderUsersGrid(){ const c=document.getElementById('usersGrid');if(!c)return;if(currentUser?.role!=='master'){c.innerHTML=`<div class="empty-state"><span class="ei">🔒</span><p>Acceso restringido</p></div>`;return;}renderPendingUsers();
+  c.innerHTML=[MASTER,...appData.users].map(u=>{
+    const p=appData.personnel.find(x=>x.userId===u.id);
+    const line=p?appData.lines.find(l=>l.id===p.lineId):null;
+    return `<div class="user-card"><div class="uc-head"><div class="uc-av">${ini(u.fullname||u.username)}</div>
+    <div><div class="uc-name">${u.fullname||u.username}</div><div class="uc-role">${u.role.toUpperCase()}</div></div>
+    ${u.id!=='master'?`<div style="margin-left:auto;display:flex;gap:.25rem;">
+      <button class="icon-btn" onclick="openEditProfile('${u.id}')" title="Editar empleado">✏️</button>
+      <button class="icon-btn del" onclick="confirmDelUser('${u.id}')">🗑</button>
+    </div>`:'<div style="margin-left:auto;"><span class="badge b-leader">MASTER</span></div>'}</div>
+    <div class="uc-body">
+      <div class="uc-row"><span class="uc-key">Usuario</span><span style="font-size:.78em;font-weight:600;">${u.username}</span></div>
+      <div class="uc-row"><span class="uc-key">Contraseña</span><span style="font-size:.78em;color:var(--text-dim);font-family:monospace;">${u.id!=='master'?(u.password||'—'):'••••••••'}</span></div>
+      ${p?`<div class="uc-row"><span class="uc-key">Línea</span><span style="font-size:.78em;color:var(--gold);">${line?line.name:'—'}</span></div>
+      <div class="uc-row"><span class="uc-key">Próx. Salida</span><span style="font-size:.76em;">${p.fechaDescanso||'—'}</span></div>`:''}
+      <div class="uc-row"><span class="uc-key">Rol</span><span class="badge b-leader">${u.role}</span></div>
+    </div></div>`;
+  }).join(''); }
 
 // ── DAYS ADJ ─────────────────────────────────────────────────
 window.adjDays=function(pid,delta){ const p=appData.personnel.find(x=>x.id===pid);if(!p)return;if(!hasPerm('days')){toast('⚠ Sin permiso');return;}const max=p.guardia==='7x7'?7:11;p.diasLibres=Math.max(0,Math.min(max,(p.diasLibres||0)+delta));pushData();renderAll();toast(`${p.name}: ${p.diasLibres} días`); };
@@ -1318,7 +1596,442 @@ window.confirmDelUser=function(id){ const u=appData.users.find(x=>x.id===id);if(
 
 // ── INIT ──────────────────────────────────────────────────────
 loadCache();
-if(navigator.onLine){get(ref(db,'data/users')).then(s=>{if(s.exists()){appData.users=Object.values(s.val());saveCache();}}).catch(()=>{});}
+if(navigator.onLine){
+  get(ref(db,'data/users')).then(s=>{if(s.exists()){appData.users=Object.values(s.val());saveCache();}}).catch(()=>{});
+  get(ref(db,'pendingUsers')).then(s=>{if(s.exists()){appData.pendingUsers=Object.values(s.val());saveCache();}}).catch(()=>{});
+}
+
+// ══════════════════════════════════════════════════════════════
+// REGISTER SYSTEM
+// ══════════════════════════════════════════════════════════════
+let regCurrentStep = 1;
+
+window.openRegister = function() {
+  // Populate line select with current lines
+  const sel = document.getElementById('regLine');
+  sel.innerHTML = appData.lines.map(l => `<option value="${l.id}">${l.name}</option>`).join('');
+  if (!sel.innerHTML) sel.innerHTML = '<option value="">Sin líneas aún</option>';
+  // Set min date to today
+  document.getElementById('regFecha').min = new Date().toISOString().split('T')[0];
+  regCurrentStep = 1;
+  showRegStep(1);
+  document.getElementById('regErr').classList.remove('show');
+  ['regName','regCedula','regUser','regPass','regPass2'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('registerScreen').classList.add('open');
+};
+
+window.closeRegister = function() {
+  document.getElementById('registerScreen').classList.remove('open');
+  document.getElementById('loginScreen').style.display = 'flex';
+};
+
+function showRegStep(n) {
+  regCurrentStep = n;
+  document.querySelectorAll('.reg-step').forEach((el,i) => el.classList.toggle('active', i+1 === n));
+  document.getElementById('rdot1').classList.toggle('active', n >= 1);
+  document.getElementById('rdot2').classList.toggle('active', n >= 2);
+  document.getElementById('regBackBtn').style.display = n > 1 ? '' : 'none';
+  document.getElementById('regNextBtn').textContent = n === 2 ? '✓ Enviar Registro' : 'Siguiente →';
+}
+
+window.regBack = function() { if (regCurrentStep > 1) showRegStep(regCurrentStep - 1); };
+
+window.regNext = function() {
+  const errEl = document.getElementById('regErr');
+  errEl.classList.remove('show');
+
+  if (regCurrentStep === 1) {
+    const name   = document.getElementById('regName').value.trim();
+    const cedula = document.getElementById('regCedula').value.trim();
+    const lineId = document.getElementById('regLine').value;
+    const fecha  = document.getElementById('regFecha').value;
+    if (!name)   { errEl.textContent = '⚠ Ingresa tu nombre completo'; errEl.classList.add('show'); return; }
+    if (!cedula) { errEl.textContent = '⚠ Ingresa tu cédula'; errEl.classList.add('show'); return; }
+    if (!lineId) { errEl.textContent = '⚠ Selecciona tu línea de servicio'; errEl.classList.add('show'); return; }
+    if (!fecha)  { errEl.textContent = '⚠ Ingresa tu próxima fecha de salida'; errEl.classList.add('show'); return; }
+    showRegStep(2);
+    return;
+  }
+
+  if (regCurrentStep === 2) {
+    const username = document.getElementById('regUser').value.trim().toLowerCase();
+    const pass     = document.getElementById('regPass').value;
+    const pass2    = document.getElementById('regPass2').value;
+    if (!username) { errEl.textContent = '⚠ Ingresa un nombre de usuario'; errEl.classList.add('show'); return; }
+    if (username.includes(' ')) { errEl.textContent = '⚠ El usuario no puede tener espacios'; errEl.classList.add('show'); return; }
+    if (pass.length < 6) { errEl.textContent = '⚠ La contraseña debe tener al menos 6 caracteres'; errEl.classList.add('show'); return; }
+    if (pass !== pass2) { errEl.textContent = '⚠ Las contraseñas no coinciden'; errEl.classList.add('show'); return; }
+    // Check username not taken
+    const taken = appData.users.find(u => u.username.toLowerCase() === username) ||
+                  appData.pendingUsers?.find(u => u.username?.toLowerCase() === username) ||
+                  username === MASTER.username.toLowerCase();
+    if (taken) { errEl.textContent = '⚠ Ese nombre de usuario ya está en uso'; errEl.classList.add('show'); return; }
+    submitRegister(username, pass);
+  }
+};
+
+function submitRegister(username, password) {
+  const name     = document.getElementById('regName').value.trim();
+  const cedula   = document.getElementById('regCedula').value.trim();
+  const lineId   = document.getElementById('regLine').value;
+  const role     = document.getElementById('regRole').value;
+  const guardia  = document.getElementById('regGuardia').value;
+  const turno    = document.getElementById('regTurno').value;
+  const fecha    = document.getElementById('regFecha').value;
+
+  const pendingUser = {
+    id: uid(),
+    username, password, fullname: name, cedula,
+    lineId, role, guardia, turno, fechaDescanso: fecha,
+    status: 'pending',
+    createdAt: new Date().toISOString(),
+    perms: { lines: false, personnel: false, days: true, view: true }
+  };
+
+  if (!appData.pendingUsers) appData.pendingUsers = [];
+  appData.pendingUsers.push(pendingUser);
+
+  // Save to Firebase under pendingUsers
+  if (navigator.onLine) {
+    const payload = arrayToObj(appData.pendingUsers, 'id');
+    set(ref(db, 'pendingUsers'), payload).catch(() => {});
+
+    // Notify master via Firebase (write to notifications)
+    const notifId = uid();
+    set(ref(db, 'notifications/' + notifId), {
+      id: notifId,
+      type: 'new_register',
+      message: `📝 Nuevo registro pendiente: ${name} (${cedula})`,
+      from: username,
+      createdAt: new Date().toISOString(),
+      read: false
+    }).catch(() => {});
+  }
+
+  saveCache();
+  document.getElementById('registerScreen').classList.remove('open');
+  document.getElementById('pendingScreen').classList.add('open');
+}
+
+// ══════════════════════════════════════════════════════════════
+// PENDING USERS — MASTER APPROVAL
+// ══════════════════════════════════════════════════════════════
+function renderPendingUsers() {
+  const section = document.getElementById('pendingSection');
+  const list    = document.getElementById('pendingList');
+  if (!section || !list) return;
+  const pending = (appData.pendingUsers || []).filter(u => u.status === 'pending');
+  if (!pending.length) { section.style.display = 'none'; return; }
+  section.style.display = 'block';
+  list.innerHTML = pending.map(u => {
+    const line = appData.lines.find(l => l.id === u.lineId);
+    return `
+    <div class="pending-item">
+      <div class="crew-avatar avatar-crew" style="width:38px;height:38px;font-size:.8em;border:2px solid rgba(230,126,34,.5);">${ini(u.fullname)}</div>
+      <div class="pending-item-info">
+        <div class="pending-item-name">${u.fullname} <span class="pending-badge">PENDIENTE</span></div>
+        <div class="pending-item-sub">@${u.username} · ${u.cedula} · ${line ? line.name : u.lineId} · ${u.role} · ${u.guardia} ${u.turno}</div>
+        <div class="pending-item-sub" style="margin-top:2px;">📅 Próxima salida: ${u.fechaDescanso || '—'} · Registrado: ${new Date(u.createdAt).toLocaleDateString('es-VE')}</div>
+      </div>
+      <div class="pending-actions">
+        <button class="btn btn-gold btn-sm" onclick="approveUser('${u.id}')">✓ Aprobar</button>
+        <button class="btn btn-danger btn-sm" onclick="rejectUser('${u.id}')">✗ Rechazar</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+window.approveUser = function(id) {
+  const pu = (appData.pendingUsers || []).find(u => u.id === id);
+  if (!pu) return;
+
+  // Create as active user
+  const newUser = {
+    id: pu.id,
+    username: pu.username,
+    password: pu.password,
+    fullname: pu.fullname,
+    cedula: pu.cedula,
+    role: 'employee',
+    perms: { lines: false, personnel: false, days: true, view: true },
+    lineId: pu.lineId,
+    status: 'active'
+  };
+  appData.users.push(newUser);
+
+  // Auto-create in Personnel
+  const already = appData.personnel.find(p => p.cedula === pu.cedula);
+  if (!already) {
+    appData.personnel.push({
+      id: 'emp_' + pu.id,
+      userId: pu.id,
+      name: pu.fullname,
+      cedula: pu.cedula,
+      lineId: pu.lineId,
+      role: pu.role,
+      guardia: pu.guardia,
+      turno: pu.turno,
+      diasLibres: pu.guardia === '7x7' ? 7 : 11,
+      fechaDescanso: pu.fechaDescanso,
+      esChofer: pu.role === 'Chofer'
+    });
+  }
+
+  // Remove from pending
+  appData.pendingUsers = appData.pendingUsers.filter(u => u.id !== id);
+
+  // Notify via Firebase
+  if (navigator.onLine) {
+    const notifId = uid();
+    set(ref(db, 'notifications/' + notifId), {
+      id: notifId, type: 'approved', targetUser: pu.username,
+      message: `✅ Tu registro fue aprobado. Ya puedes ingresar.`,
+      createdAt: new Date().toISOString(), read: false
+    }).catch(() => {});
+  }
+
+  pushData();
+  renderAll();
+  toast(`✅ ${pu.fullname} aprobado y agregado al sistema`);
+};
+
+window.rejectUser = function(id) {
+  const pu = (appData.pendingUsers || []).find(u => u.id === id);
+  if (!pu) return;
+  appData.pendingUsers = appData.pendingUsers.filter(u => u.id !== id);
+  pushData();
+  renderPendingUsers();
+  toast(`🗑 Solicitud de ${pu.fullname} rechazada`);
+};
+
+// ══════════════════════════════════════════════════════════════
+// MY PROFILE VIEW
+// ══════════════════════════════════════════════════════════════
+function renderProfile() {
+  if (!currentUser) return;
+  const card = document.getElementById('profileCard');
+  const notifBanner = document.getElementById('notifBanner');
+  if (!card) return;
+
+  // Find linked personnel record
+  const p = appData.personnel.find(x => x.userId === currentUser.id || x.cedula === currentUser.cedula);
+  const line = p ? appData.lines.find(l => l.id === p.lineId) : null;
+
+  // Check if today is their off day
+  const today = new Date().toISOString().split('T')[0];
+  const isTodayOff = p && p.fechaDescanso === today;
+
+  if (notifBanner) {
+    if (isTodayOff) {
+      notifBanner.innerHTML = `
+      <div class="notif-banner">
+        <div class="nb-icon">🎉</div>
+        <div class="nb-text">
+          <strong>¡Hoy es tu día de salida!</strong><br>
+          Confirma si estás saliendo hoy o si necesitas posponer tu descanso.
+          <div class="notif-actions">
+            <button class="btn btn-gold btn-sm" onclick="confirmExit()">✓ Sí, salgo hoy</button>
+            <button class="btn btn-outline btn-sm" onclick="openModal('modalPostpone')">📅 Posponer fecha</button>
+          </div>
+        </div>
+      </div>`;
+    } else {
+      notifBanner.innerHTML = '';
+    }
+  }
+
+  card.innerHTML = `
+  <div class="profile-head">
+    <div class="profile-av">${ini(currentUser.fullname || currentUser.username)}</div>
+    <div>
+      <div class="profile-name">${currentUser.fullname || currentUser.username}</div>
+      <div class="profile-role">${currentUser.role === 'master' ? '★ MASTER' : (p ? p.role : currentUser.role).toUpperCase()} ${line ? '· ' + line.name : ''}</div>
+    </div>
+    ${currentUser.role === 'master' ? '' : `<button class="btn btn-outline btn-sm" style="margin-left:auto;" onclick="openModal('modalPostpone')">📅 Actualizar Salida</button>`}
+  </div>
+  <div class="profile-body">
+    <div class="profile-row">
+      <span class="profile-key">Usuario</span>
+      <span class="profile-val">@${currentUser.username}</span>
+    </div>
+    ${currentUser.cedula ? `<div class="profile-row"><span class="profile-key">Cédula</span><span class="profile-val">${currentUser.cedula}</span></div>` : ''}
+    ${p ? `
+    <div class="profile-row"><span class="profile-key">Línea</span><span class="profile-val">${line ? line.name : '—'}</span></div>
+    <div class="profile-row"><span class="profile-key">Cargo</span><span class="profile-val">${p.role}</span></div>
+    <div class="profile-row"><span class="profile-key">Guardia</span><span class="profile-val"><span class="badge ${p.guardia === '7x7' ? 'b-7x7' : 'b-11x11'}">${p.guardia}</span></span></div>
+    <div class="profile-row"><span class="profile-key">Turno</span><span class="profile-val"><span class="badge ${p.turno === 'Diurna' ? 'b-diurna' : 'b-nocturna'}">${p.turno || '—'}</span></span></div>
+    <div class="profile-row"><span class="profile-key">Días Libres</span><span class="profile-val">${p.diasLibres || 0} días</span></div>
+    <div class="profile-row">
+      <span class="profile-key">Próxima Salida</span>
+      <span class="profile-val profile-editable">
+        <span style="color:${isTodayOff ? '#58D68D' : 'var(--gold)'};">${p.fechaDescanso ? new Date(p.fechaDescanso + 'T00:00:00').toLocaleDateString('es-VE', {day:'2-digit',month:'long',year:'numeric'}) : 'Sin fecha'}</span>
+        ${isTodayOff ? '<span class="badge b-dias-ok" style="margin-left:.4rem;">HOY</span>' : ''}
+      </span>
+    </div>` : '<div class="profile-row"><span class="profile-key" style="color:var(--text-dim);">Tu perfil aún está siendo vinculado por el supervisor.</span></div>'}
+  </div>`;
+}
+
+// Confirm going on leave today
+window.confirmExit = function() {
+  const p = appData.personnel.find(x => x.userId === currentUser.id || x.cedula === currentUser.cedula);
+  if (!p) return;
+  // Move fechaDescanso to guardia cycle ahead
+  const max = p.guardia === '7x7' ? 7 : 11;
+  const next = new Date();
+  next.setDate(next.getDate() + max * 2); // next cycle
+  p.diasLibres = max;
+  p.fechaDescanso = next.toISOString().split('T')[0];
+  pushData();
+  renderProfile();
+  toast('✅ ¡Buen descanso! Próxima salida actualizada');
+};
+
+// Postpone exit date
+window.confirmPostpone = function() {
+  const newDate = document.getElementById('postponeDate').value;
+  const reason  = document.getElementById('postponeReason').value.trim();
+  if (!newDate) { toast('⚠ Selecciona una nueva fecha'); return; }
+  const p = appData.personnel.find(x => x.userId === currentUser.id || x.cedula === currentUser.cedula);
+  if (!p) return;
+  const oldDate = p.fechaDescanso;
+  p.fechaDescanso = newDate;
+
+  // Notify master via Firebase
+  if (navigator.onLine) {
+    const nid = uid();
+    set(ref(db, 'notifications/' + nid), {
+      id: nid, type: 'postponed',
+      message: `⚠️ ${currentUser.fullname || currentUser.username} postergó su salida del ${oldDate} al ${newDate}${reason ? ' — Motivo: ' + reason : ''}`,
+      from: currentUser.username, createdAt: new Date().toISOString(), read: false
+    }).catch(() => {});
+  }
+
+  pushData();
+  closeModal('modalPostpone');
+  renderProfile();
+  renderAll();
+  toast('📅 Fecha de salida actualizada. Supervisor notificado.');
+};
+
+// ══════════════════════════════════════════════════════════════
+// EDIT PROFILE (MASTER)
+// ══════════════════════════════════════════════════════════════
+let editingEmpId = null;
+
+window.openEditProfile = function(userId) {
+  const u = appData.users.find(x => x.id === userId);
+  const p = appData.personnel.find(x => x.userId === userId);
+  if (!u) return;
+  editingEmpId = userId;
+  document.getElementById('editProfileTitle').textContent = 'Editar: ' + (u.fullname || u.username);
+  document.getElementById('epName').value     = u.fullname || '';
+  document.getElementById('epCedula').value   = u.cedula || p?.cedula || '';
+  document.getElementById('epUsername').value = u.username;
+  document.getElementById('epPass').value     = u.password || '';
+  document.getElementById('epLine').innerHTML = appData.lines.map(l =>
+    `<option value="${l.id}"${(p?.lineId||u.lineId) === l.id ? ' selected' : ''}>${l.name}</option>`).join('');
+  document.getElementById('epRole').value     = p?.role || 'Operador';
+  document.getElementById('epGuardia').value  = p?.guardia || '7x7';
+  document.getElementById('epTurno').value    = p?.turno || 'Diurna';
+  document.getElementById('epDias').value     = p?.diasLibres || 0;
+  document.getElementById('epFecha').value    = p?.fechaDescanso || '';
+  document.getElementById('epEsChofer').checked = !!(p?.esChofer || p?.role === 'Chofer');
+  openModal('modalEditProfile');
+};
+
+window.saveEditProfile = function() {
+  const u = appData.users.find(x => x.id === editingEmpId);
+  if (!u) return;
+  u.fullname = document.getElementById('epName').value.trim();
+  u.cedula   = document.getElementById('epCedula').value.trim();
+  u.username = document.getElementById('epUsername').value.trim();
+  u.password = document.getElementById('epPass').value;
+
+  // Update personnel record
+  let p = appData.personnel.find(x => x.userId === editingEmpId);
+  if (p) {
+    p.name          = u.fullname;
+    p.cedula        = u.cedula;
+    p.lineId        = document.getElementById('epLine').value;
+    p.role          = document.getElementById('epRole').value;
+    p.guardia       = document.getElementById('epGuardia').value;
+    p.turno         = document.getElementById('epTurno').value;
+    p.diasLibres    = parseInt(document.getElementById('epDias').value) || 0;
+    p.fechaDescanso = document.getElementById('epFecha').value;
+    p.esChofer      = document.getElementById('epEsChofer').checked;
+  }
+  pushData();
+  closeModal('modalEditProfile');
+  renderAll();
+  toast('✅ Empleado actualizado');
+};
+
+// ══════════════════════════════════════════════════════════════
+// NOTIFICATIONS CHECK (on app load)
+// ══════════════════════════════════════════════════════════════
+function checkMyNotifications() {
+  if (!currentUser || currentUser.role === 'master') return;
+  const p = appData.personnel.find(x => x.userId === currentUser.id || x.cedula === currentUser.cedula);
+  if (!p || !p.fechaDescanso) return;
+  const today = new Date().toISOString().split('T')[0];
+  if (p.fechaDescanso === today) {
+    // Show profile tab with notification dot
+    setTimeout(() => {
+      if (Notification.permission === 'granted') {
+        new Notification('🎉 Ranger WSC — ¡Hoy es tu día libre!', {
+          body: 'Confirma tu salida o pospón la fecha en la app.',
+          icon: './icon-192.png'
+        });
+      }
+    }, 2000);
+  }
+}
+
+function requestNotifPermission() {
+  if ('Notification' in window && Notification.permission === 'default') {
+    Notification.requestPermission();
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// MASTER NOTIFICATIONS LISTENER
+// ══════════════════════════════════════════════════════════════
+function listenMasterNotifications() {
+  if (currentUser?.role !== 'master' || !navigator.onLine) return;
+  onValue(ref(db, 'notifications'), snap => {
+    if (!snap.exists()) return;
+    const notifs = Object.values(snap.val()).filter(n => !n.read);
+    if (notifs.length && Notification.permission === 'granted') {
+      notifs.slice(0, 3).forEach(n => {
+        new Notification('Ranger WSC — ' + (n.type === 'postponed' ? '⚠️ Postergación' : '📝 Nuevo Registro'), {
+          body: n.message, icon: './icon-192.png'
+        });
+        // Mark as read
+        if (navigator.onLine) update(ref(db, 'notifications/' + n.id), { read: true }).catch(() => {});
+      });
+    }
+    // Show pending count badge
+    const pendingNotif = notifs.filter(n => n.type === 'new_register');
+    if (pendingNotif.length) {
+      const tabU = document.getElementById('tabUsers');
+      if (tabU) tabU.textContent = `👑 Usuarios (${pendingNotif.length})`;
+    }
+  });
+}
+
+// Sync pendingUsers from Firebase
+function syncPendingUsers() {
+  if (!navigator.onLine || currentUser?.role !== 'master') return;
+  onValue(ref(db, 'pendingUsers'), snap => {
+    if (snap.exists()) {
+      appData.pendingUsers = Object.values(snap.val());
+      saveCache();
+      renderPendingUsers();
+    }
+  });
+}
+
 </script>
 </body>
 </html>
