@@ -603,6 +603,154 @@ tbody tr:hover { background: rgba(201,168,76,.06) !important; box-shadow: inset 
 .pending-item-sub{font-size:.68rem;color:var(--text-dim);margin-top:1px;}
 .pending-actions{display:flex;gap:.4rem;}
 
+
+/* ── RANK BADGES v5.3 ──────────────────────────────────────── */
+.rank-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  font-size: .9rem;
+  flex-shrink: 0;
+  position: relative;
+}
+.rank-badge::after {
+  content: attr(data-rank);
+  position: absolute;
+  bottom: -14px; left: 50%;
+  transform: translateX(-50%);
+  font-size: .48rem;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  letter-spacing: .08em;
+  white-space: nowrap;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+/* Rank specific styles */
+.rank-coordinador {
+  background: linear-gradient(135deg, #B8860B, #FFD700);
+  box-shadow: 0 0 10px rgba(255,215,0,.5), 0 0 20px rgba(255,215,0,.2);
+  border: 2px solid #FFD700;
+}
+.rank-supervisor {
+  background: linear-gradient(135deg, #708090, #C0C0C0);
+  box-shadow: 0 0 10px rgba(192,192,192,.4);
+  border: 2px solid #C0C0C0;
+}
+.rank-lider {
+  background: linear-gradient(135deg, #8B6914, #C9A84C);
+  box-shadow: 0 0 8px rgba(201,168,76,.4);
+  border: 2px solid #C9A84C;
+}
+.rank-chofer {
+  background: linear-gradient(135deg, #1565C0, #42A5F5);
+  box-shadow: 0 0 8px rgba(66,165,245,.3);
+  border: 2px solid #42A5F5;
+}
+.rank-operador {
+  background: linear-gradient(135deg, #1B5E20, #4CAF50);
+  box-shadow: 0 0 7px rgba(76,175,80,.3);
+  border: 2px solid #4CAF50;
+}
+.rank-mecanico {
+  background: linear-gradient(135deg, #E65100, #FF9800);
+  box-shadow: 0 0 7px rgba(255,152,0,.3);
+  border: 2px solid #FF9800;
+}
+.rank-ayudante {
+  background: linear-gradient(135deg, #37474F, #78909C);
+  box-shadow: 0 0 5px rgba(120,144,156,.2);
+  border: 2px solid #78909C;
+}
+.rank-motorista {
+  background: linear-gradient(135deg, #0D47A1, #1E88E5);
+  box-shadow: 0 0 7px rgba(30,136,229,.3);
+  border: 2px solid #1E88E5;
+}
+
+/* Rank card in dashboard — big display */
+.rank-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .25rem;
+  padding: .3rem;
+}
+.rank-display .rank-badge { width: 36px; height: 36px; font-size: 1.1rem; }
+.rank-display .rank-label {
+  font-size: .58rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-align: center;
+  max-width: 60px;
+  line-height: 1.2;
+}
+.rank-display .rank-secondary {
+  font-size: .52rem;
+  color: rgba(201,168,76,.5);
+  letter-spacing: .08em;
+}
+
+/* Secondary role badge */
+.badge-secondary {
+  background: rgba(255,255,255,.06);
+  color: var(--text-dim);
+  border: 1px solid rgba(255,255,255,.1);
+  font-size: .56em;
+  padding: .08rem .32rem;
+  border-radius: 3px;
+  letter-spacing: .06em;
+}
+
+/* Configure & Approve modal */
+.perm-full-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .55rem;
+  margin-top: .4rem;
+}
+.perm-full-item {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .45rem .6rem;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all .18s;
+}
+.perm-full-item:hover { border-color: var(--border); background: rgba(201,168,76,.05); }
+.perm-full-item input { accent-color: var(--gold); width: 14px; height: 14px; cursor: pointer; }
+.perm-full-item span { font-size: .74em; color: var(--text); line-height: 1.3; }
+.perm-full-item .perm-icon { font-size: .9rem; flex-shrink: 0; }
+
+/* Pending card upgrade */
+.pending-item {
+  background: linear-gradient(135deg, rgba(230,126,34,.06), rgba(139,105,20,.04)) !important;
+  border: 1px solid rgba(230,126,34,.25) !important;
+}
+.pending-configure-btn {
+  background: linear-gradient(135deg, rgba(139,105,20,.4), rgba(201,168,76,.2));
+  border: 1px solid rgba(201,168,76,.4);
+  color: var(--gold-l);
+  border-radius: 4px;
+  padding: .28rem .65rem;
+  font-family: 'Rajdhani',sans-serif;
+  font-size: .72em;
+  font-weight: 700;
+  letter-spacing: .09em;
+  cursor: pointer;
+  transition: all .18s;
+  text-transform: uppercase;
+}
+.pending-configure-btn:hover { filter: brightness(1.15); }
+
 </style>
 </head>
 <body>
@@ -625,7 +773,7 @@ tbody tr:hover { background: rgba(201,168,76,.06) !important; box-shadow: inset 
         <div class="login-badge"><div class="login-badge-inner">R</div></div>
         <div class="login-title">CONTROL DE PERSONAL<br>RANGER WSC</div>
         <div class="login-sub">Well Services Cavallino · Anzoátegui</div>
-        <div class="login-ver" id="loginVer">v5.2.0</div>
+        <div class="login-ver" id="loginVer">v5.3.0</div>
       </div>
       <div class="login-form">
         <div id="loginErr" class="login-err">⚠ Usuario o contraseña incorrectos</div>
@@ -674,6 +822,16 @@ tbody tr:hover { background: rgba(201,168,76,.06) !important; box-shadow: inset 
         <div class="form-group">
           <label class="form-label">Cargo / Rol</label>
           <select class="form-select" id="regRole">
+            <option>Coordinador</option><option>Supervisor</option>
+            <option>Líder de Equipo</option><option>Chofer</option>
+            <option>Operador</option><option>Ayudante</option>
+            <option>Mecánico</option><option>Motorista</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Cargo Secundario <span style="color:var(--text-dim);font-size:.85em;">(opcional)</span></label>
+          <select class="form-select" id="regRoleSecondary">
+            <option value="">— Ninguno —</option>
             <option>Coordinador</option><option>Supervisor</option>
             <option>Líder de Equipo</option><option>Chofer</option>
             <option>Operador</option><option>Ayudante</option>
@@ -795,6 +953,7 @@ tbody tr:hover { background: rgba(201,168,76,.06) !important; box-shadow: inset 
   </div>
   <div class="stats-grid" id="statsGrid"></div>
   <div id="dashConflict"></div>
+  <div id="rankLegend" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:.38rem;margin-bottom:1rem;"></div>
   <div class="section-divider"><h3>EQUIPOS ACTIVOS</h3></div>
   <div class="lines-grid" id="dashLineCards"></div>
 </div>
@@ -1071,13 +1230,104 @@ tbody tr:hover { background: rgba(201,168,76,.06) !important; box-shadow: inset 
   </div>
 </div>
 
+
+<!-- CONFIGURE & APPROVE MODAL -->
+<div class="modal-overlay" id="modalConfigApprove">
+  <div class="modal" style="max-width:520px;">
+    <div class="modal-header">
+      <span class="modal-title">⚙️ Configurar y Aprobar</span>
+      <button class="modal-close" onclick="closeModal('modalConfigApprove')">✕</button>
+    </div>
+    <div class="modal-body">
+      <!-- Employee preview -->
+      <div style="display:flex;align-items:center;gap:.85rem;padding:.8rem 1rem;background:rgba(201,168,76,.05);border:1px solid var(--border);border-radius:8px;margin-bottom:1.1rem;">
+        <div id="caAvatar" class="crew-avatar avatar-crew" style="width:44px;height:44px;font-size:.9em;flex-shrink:0;"></div>
+        <div>
+          <div id="caName" style="font-weight:700;font-size:.9em;color:var(--white);"></div>
+          <div id="caMeta" style="font-size:.68em;color:var(--text-dim);margin-top:2px;"></div>
+        </div>
+        <div id="caRankDisplay" style="margin-left:auto;"></div>
+      </div>
+
+      <!-- Role assignment -->
+      <div class="form-group" style="margin-bottom:.9rem;">
+        <label class="form-label">Confirmar / Cambiar Cargo Principal</label>
+        <select class="form-select" id="caRole">
+          <option>Coordinador</option><option>Supervisor</option><option>Líder de Equipo</option>
+          <option>Chofer</option><option>Operador</option><option>Ayudante</option>
+          <option>Mecánico</option><option>Motorista</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin-bottom:1rem;">
+        <label class="form-label">Cargo Secundario</label>
+        <select class="form-select" id="caRoleSecondary">
+          <option value="">— Ninguno —</option>
+          <option>Coordinador</option><option>Supervisor</option><option>Líder de Equipo</option>
+          <option>Chofer</option><option>Operador</option><option>Ayudante</option>
+          <option>Mecánico</option><option>Motorista</option>
+        </select>
+      </div>
+
+      <!-- Permissions -->
+      <div class="form-label" style="margin-bottom:.5rem;">PERMISOS DE ACCESO</div>
+      <div class="perm-full-grid">
+        <label class="perm-full-item">
+          <span class="perm-icon">📊</span>
+          <input type="checkbox" id="caPDash" checked>
+          <span>Ver Dashboard</span>
+        </label>
+        <label class="perm-full-item">
+          <span class="perm-icon">🔄</span>
+          <input type="checkbox" id="caPGuardias" checked>
+          <span>Ver Guardias</span>
+        </label>
+        <label class="perm-full-item">
+          <span class="perm-icon">📅</span>
+          <input type="checkbox" id="caPRotaciones" checked>
+          <span>Ver Rotaciones</span>
+        </label>
+        <label class="perm-full-item">
+          <span class="perm-icon">👷</span>
+          <input type="checkbox" id="caPPersonnel">
+          <span>Gestionar Personal</span>
+        </label>
+        <label class="perm-full-item">
+          <span class="perm-icon">⚙️</span>
+          <input type="checkbox" id="caPLines">
+          <span>Gestionar Líneas</span>
+        </label>
+        <label class="perm-full-item">
+          <span class="perm-icon">📆</span>
+          <input type="checkbox" id="caPDays" checked>
+          <span>Modificar Días Libres</span>
+        </label>
+        <label class="perm-full-item">
+          <span class="perm-icon">👑</span>
+          <input type="checkbox" id="caPUsers">
+          <span>Ver Usuarios</span>
+        </label>
+        <label class="perm-full-item">
+          <span class="perm-icon">👁</span>
+          <input type="checkbox" id="caPView" checked>
+          <span>Solo Lectura</span>
+        </label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger btn-sm" onclick="rejectFromConfig()">✗ Rechazar</button>
+      <button class="btn btn-outline" onclick="closeModal('modalConfigApprove')">Cancelar</button>
+      <button class="btn btn-gold" onclick="confirmApprove()">✓ Aprobar y Activar</button>
+    </div>
+  </div>
+</div>
+
 <div id="toast"></div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getDatabase, ref, set, get, onValue, update } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-const APP_VERSION = "5.2.0";
+const APP_VERSION = "5.3.0";
 const VERSION_URL = "https://ljsc24.github.io/ranger-wsc/version.json";
 const FB = { apiKey:"AIzaSyBVkbiHbEZxIiTTx4gdc2k1AL_gfPXDA-A",authDomain:"ranger-wsc.firebaseapp.com",databaseURL:"https://ranger-wsc-default-rtdb.firebaseio.com",projectId:"ranger-wsc",storageBucket:"ranger-wsc.firebasestorage.app",messagingSenderId:"359053578987",appId:"1:359053578987:web:8166d95f2532dd49bae4ae" };
 const fbApp = initializeApp(FB);
@@ -1432,6 +1682,17 @@ window.renderDashboard=function(){
     <div class="stat-value">${s.value}</div>
     <div class="stat-sub">${s.sub}</div>
   </div>`).join('');
+  // Rank legend
+  const rlHtml=Object.entries(RANK_CONFIG).map(([role,r])=>{
+    const cnt=appData.personnel.filter(p=>p.role===role||p.roleSecondary===role).length;
+    if(!cnt)return '';
+    return `<div style="display:flex;align-items:center;gap:.32rem;padding:.28rem .5rem;background:rgba(255,255,255,.03);border-radius:5px;border:1px solid rgba(255,255,255,.06);">
+      <div class="rank-badge ${r.cls}" style="width:20px;height:20px;font-size:.6rem;">${r.icon}</div>
+      <span style="font-size:.63em;color:var(--text-dim);">${r.label}</span>
+      <span style="font-size:.7em;font-weight:700;color:var(--text);margin-left:auto;">${cnt}</span></div>`;
+  }).filter(Boolean).join('');
+  const rlEl=document.getElementById('rankLegend');
+  if(rlEl)rlEl.innerHTML=rlHtml||'';
   renderRotaciones();
   const lines=fl?appData.lines.filter(l=>l.id===fl):appData.lines;
   const c=document.getElementById('dashLineCards');
@@ -1476,8 +1737,8 @@ function crewRow(p,showBar=false){
   const nextSal=calcNextSalida(p);
   return `<div class="crew-member">
     <div class="crew-avatar ${avCls}">${ini(p.name)}</div>
-    <div class="crew-info"><div class="crew-name">${p.name}${p.esChofer?'<span style="font-size:.7em;margin-left:.2rem;">🚗</span>':''}</div>
-    <div class="crew-role">${p.role}</div>
+    <div class="crew-info"><div class="crew-name">${p.name}</div>
+    <div style="display:flex;align-items:center;gap:.3rem;flex-wrap:wrap;">${getRankBadge(p.role,'sm')}${p.roleSecondary?`${getRankBadge(p.roleSecondary,'sm')}`:''}<span style="font-size:.63em;color:var(--text-dim);">${p.role}${p.roleSecondary?` · <span class=badge-secondary>${p.roleSecondary}</span>`:''}</span></div>
     ${showBar?`<div class="days-bar" style="width:70px;margin-top:4px;"><div class="days-fill" style="width:${pct}%"></div></div>`:''}</div>
     <div class="crew-badges">
       <span class="badge ${p.guardia==='7x7'?'b-7x7':'b-11x11'}">${p.guardia}</span>
@@ -1583,8 +1844,8 @@ let editPId=null;
 function openPersonModal(lineId=null){ if(!hasPerm('personnel')){toast('⚠ Sin permiso');return;}document.getElementById('pLine').innerHTML=appData.lines.map(l=>`<option value="${l.id}"${l.id===lineId?' selected':''}>${l.name}</option>`).join('');['pName','pId'].forEach(id=>document.getElementById(id).value='');document.getElementById('pRole').value='Operador';document.getElementById('pGuardia').value='7x7';document.getElementById('pTurno').value='Diurna';document.getElementById('pDias').value='';document.getElementById('pFechaDescanso').value='';document.getElementById('pEsChofer').checked=false;openModal('modalAddPerson'); }
 window.openAddToLine=function(lid){editPId=null;document.getElementById('personModalTitle').textContent='Agregar Personal';openPersonModal(lid);};
 window.openAddPersonModal=function(){editPId=null;document.getElementById('personModalTitle').textContent='Agregar Personal';openPersonModal();};
-window.editPerson=function(pid){ const p=appData.personnel.find(x=>x.id===pid);if(!p)return;if(!hasPerm('personnel')){toast('⚠ Sin permiso');return;}editPId=pid;document.getElementById('personModalTitle').textContent='Editar Personal';document.getElementById('pLine').innerHTML=appData.lines.map(l=>`<option value="${l.id}"${l.id===p.lineId?' selected':''}>${l.name}</option>`).join('');document.getElementById('pName').value=p.name;document.getElementById('pRole').value=p.role;document.getElementById('pGuardia').value=p.guardia;document.getElementById('pTurno').value=p.turno||'Diurna';document.getElementById('pDias').value=p.diasLibres;document.getElementById('pFechaDescanso').value=p.fechaDescanso||'';document.getElementById('pId').value=p.cedula||'';document.getElementById('pEsChofer').checked=!!p.esChofer;openModal('modalAddPerson'); };
-window.savePerson=function(){ const name=document.getElementById('pName').value.trim(),lineId=document.getElementById('pLine').value,role=document.getElementById('pRole').value,guardia=document.getElementById('pGuardia').value,turno=document.getElementById('pTurno').value,dias=parseInt(document.getElementById('pDias').value)||0,cedula=document.getElementById('pId').value.trim(),fechaDescanso=document.getElementById('pFechaDescanso').value,esChofer=document.getElementById('pEsChofer').checked;if(!name){toast('⚠ Ingresa nombre');return;}if(!lineId){toast('⚠ Selecciona línea');return;}if(editPId){const p=appData.personnel.find(x=>x.id===editPId);if(p)Object.assign(p,{name,lineId,role,guardia,turno,diasLibres:dias,cedula,fechaDescanso,esChofer});editPId=null;}else appData.personnel.push({id:uid(),name,lineId,role,guardia,turno,diasLibres:dias,cedula,fechaDescanso,esChofer});pushData();closeModal('modalAddPerson');renderAll();toast('✅ Personal guardado'); };
+window.editPerson=function(pid){ const p=appData.personnel.find(x=>x.id===pid);if(!p)return;if(!hasPerm('personnel')){toast('⚠ Sin permiso');return;}editPId=pid;document.getElementById('personModalTitle').textContent='Editar Personal';document.getElementById('pLine').innerHTML=appData.lines.map(l=>`<option value="${l.id}"${l.id===p.lineId?' selected':''}>${l.name}</option>`).join('');document.getElementById('pName').value=p.name;document.getElementById('pRole').value=p.role;const prs=document.getElementById('pRoleSecondary');if(prs)prs.value=p.roleSecondary||'';document.getElementById('pGuardia').value=p.guardia;document.getElementById('pTurno').value=p.turno||'Diurna';document.getElementById('pDias').value=p.diasLibres;document.getElementById('pFechaDescanso').value=p.fechaDescanso||'';document.getElementById('pId').value=p.cedula||'';document.getElementById('pEsChofer').checked=!!p.esChofer;openModal('modalAddPerson'); };
+window.savePerson=function(){ const name=document.getElementById('pName').value.trim(),lineId=document.getElementById('pLine').value,role=document.getElementById('pRole').value,roleSecondary=document.getElementById('pRoleSecondary')?.value||'',guardia=document.getElementById('pGuardia').value,turno=document.getElementById('pTurno').value,dias=parseInt(document.getElementById('pDias').value)||0,cedula=document.getElementById('pId').value.trim(),fechaDescanso=document.getElementById('pFechaDescanso').value,esChofer=document.getElementById('pEsChofer').checked;if(!name){toast('⚠ Ingresa nombre');return;}if(!lineId){toast('⚠ Selecciona línea');return;}if(editPId){const p=appData.personnel.find(x=>x.id===editPId);if(p)Object.assign(p,{name,lineId,role,roleSecondary:roleSecondary||null,guardia,turno,diasLibres:dias,cedula,fechaDescanso,esChofer:esChofer||role==='Chofer'||roleSecondary==='Chofer'});editPId=null;}else appData.personnel.push({id:uid(),name,lineId,role,roleSecondary:roleSecondary||null,guardia,turno,diasLibres:dias,cedula,fechaDescanso,esChofer:esChofer||role==='Chofer'||roleSecondary==='Chofer'});pushData();closeModal('modalAddPerson');renderAll();toast('✅ Personal guardado'); };
 window.confirmDelPerson=function(pid){ const p=appData.personnel.find(x=>x.id===pid);if(!p)return;document.getElementById('confirmMsg').innerHTML=`¿Eliminar a <strong style="color:var(--gold)">${p.name}</strong>?`;document.getElementById('confirmBtn').onclick=()=>{appData.personnel=appData.personnel.filter(x=>x.id!==pid);pushData();closeModal('modalConfirm');renderAll();toast('🗑 Eliminado');};openModal('modalConfirm'); };
 
 // ── USER CRUD ─────────────────────────────────────────────────
@@ -1680,13 +1941,15 @@ function submitRegister(username, password) {
   const turno    = document.getElementById('regTurno').value;
   const fecha    = document.getElementById('regFecha').value;
 
+  const roleSecondary = document.getElementById('regRoleSecondary')?.value || '';
   const pendingUser = {
     id: uid(),
     username, password, fullname: name, cedula,
-    lineId, role, guardia, turno, fechaDescanso: fecha,
+    lineId, role, roleSecondary: roleSecondary || null,
+    guardia, turno, fechaDescanso: fecha,
     status: 'pending',
     createdAt: new Date().toISOString(),
-    perms: { lines: false, personnel: false, days: true, view: true }
+    perms: { dashboard:true, guardias:true, rotaciones:true, lines: false, personnel: false, days: true, view: true }
   };
 
   if (!appData.pendingUsers) appData.pendingUsers = [];
@@ -1731,11 +1994,11 @@ function renderPendingUsers() {
       <div class="crew-avatar avatar-crew" style="width:38px;height:38px;font-size:.8em;border:2px solid rgba(230,126,34,.5);">${ini(u.fullname)}</div>
       <div class="pending-item-info">
         <div class="pending-item-name">${u.fullname} <span class="pending-badge">PENDIENTE</span></div>
-        <div class="pending-item-sub">@${u.username} · ${u.cedula} · ${line ? line.name : u.lineId} · ${u.role} · ${u.guardia} ${u.turno}</div>
+        <div class="pending-item-sub">@${u.username} · ${u.cedula} · ${line ? line.name : u.lineId} · ${getRankBadge(u.role,'sm')} ${u.role}${u.roleSecondary?` + ${u.roleSecondary}`:''} · ${u.guardia} ${u.turno}</div>
         <div class="pending-item-sub" style="margin-top:2px;">📅 Próxima salida: ${u.fechaDescanso || '—'} · Registrado: ${new Date(u.createdAt).toLocaleDateString('es-VE')}</div>
       </div>
       <div class="pending-actions">
-        <button class="btn btn-gold btn-sm" onclick="approveUser('${u.id}')">✓ Aprobar</button>
+        <button class="pending-configure-btn" onclick="openConfigApprove('${u.id}')">⚙ Configurar y Aprobar</button>
         <button class="btn btn-danger btn-sm" onclick="rejectUser('${u.id}')">✗ Rechazar</button>
       </div>
     </div>`;
@@ -1846,7 +2109,12 @@ function renderProfile() {
     <div class="profile-av">${ini(currentUser.fullname || currentUser.username)}</div>
     <div>
       <div class="profile-name">${currentUser.fullname || currentUser.username}</div>
-      <div class="profile-role">${currentUser.role === 'master' ? '★ MASTER' : (p ? p.role : currentUser.role).toUpperCase()} ${line ? '· ' + line.name : ''}</div>
+      <div class="profile-role" style="display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-top:.2rem;">
+        ${p ? getRankBadge(p.role,'md') : ''}
+        <span>${currentUser.role === 'master' ? '★ MASTER' : (p ? p.role : currentUser.role).toUpperCase()}</span>
+        ${p?.roleSecondary ? `${getRankBadge(p.roleSecondary,'sm')}<span class="badge-secondary" style="font-size:.68em;">${p.roleSecondary}</span>` : ''}
+        ${line ? `<span style="color:var(--text-dim);font-size:.85em;">· ${line.name}</span>` : ''}
+      </div>
     </div>
     ${currentUser.role === 'master' ? '' : `<button class="btn btn-outline btn-sm" style="margin-left:auto;" onclick="openModal('modalPostpone')">📅 Actualizar Salida</button>`}
   </div>
@@ -2031,6 +2299,139 @@ function syncPendingUsers() {
     }
   });
 }
+
+// ══════════════════════════════════════════════════════════════
+// RANK BADGE SYSTEM v5.3
+// ══════════════════════════════════════════════════════════════
+const RANK_CONFIG = {
+  'Coordinador':    { icon: '⬡', cls: 'rank-coordinador', label: 'COORD',  color: '#FFD700' },
+  'Supervisor':     { icon: '★', cls: 'rank-supervisor',  label: 'SUP',    color: '#C0C0C0' },
+  'Líder de Equipo':{ icon: '▲', cls: 'rank-lider',       label: 'LÍDER',  color: '#C9A84C' },
+  'Chofer':         { icon: '◈', cls: 'rank-chofer',      label: 'CHOFER', color: '#42A5F5' },
+  'Operador':       { icon: '◉', cls: 'rank-operador',    label: 'OPER',   color: '#4CAF50' },
+  'Mecánico':       { icon: '⬟', cls: 'rank-mecanico',    label: 'MEC',    color: '#FF9800' },
+  'Ayudante':       { icon: '◇', cls: 'rank-ayudante',    label: 'AYUD',   color: '#78909C' },
+  'Motorista':      { icon: '⬢', cls: 'rank-motorista',   label: 'MOTOR',  color: '#1E88E5' },
+};
+
+function getRankBadge(role, size='sm') {
+  const r = RANK_CONFIG[role] || { icon: '○', cls: 'rank-ayudante', label: role?.slice(0,4)?.toUpperCase() || '?', color: '#78909C' };
+  const sz = size === 'lg' ? 'width:42px;height:42px;font-size:1.2rem;' : size === 'md' ? 'width:34px;height:34px;font-size:1rem;' : 'width:26px;height:26px;font-size:.8rem;';
+  return `<div class="rank-badge ${r.cls}" style="${sz}" title="${role}">${r.icon}</div>`;
+}
+
+function getRankDisplay(role, roleSecondary) {
+  const r = RANK_CONFIG[role] || { icon: '○', cls: 'rank-ayudante', label: role || '?', color: '#78909C' };
+  const sec = roleSecondary && RANK_CONFIG[roleSecondary];
+  return `<div class="rank-display">
+    <div class="rank-badge ${r.cls}" style="width:38px;height:38px;font-size:1.1rem;">${r.icon}</div>
+    <div class="rank-label">${r.label}</div>
+    ${sec ? `<div class="rank-secondary">${sec.icon} ${RANK_CONFIG[roleSecondary].label}</div>` : ''}
+  </div>`;
+}
+
+// ══════════════════════════════════════════════════════════════
+// CONFIGURE & APPROVE MODAL
+// ══════════════════════════════════════════════════════════════
+let configApprovingId = null;
+
+window.openConfigApprove = function(id) {
+  const pu = (appData.pendingUsers || []).find(u => u.id === id);
+  if (!pu) return;
+  configApprovingId = id;
+  const line = appData.lines.find(l => l.id === pu.lineId);
+
+  // Fill preview
+  document.getElementById('caAvatar').textContent = ini(pu.fullname);
+  document.getElementById('caName').textContent = pu.fullname;
+  document.getElementById('caMeta').textContent =
+    `@${pu.username} · ${pu.cedula} · ${line ? line.name : pu.lineId} · ${pu.guardia} ${pu.turno}`;
+  document.getElementById('caRankDisplay').innerHTML = getRankDisplay(pu.role, pu.roleSecondary);
+
+  // Set roles
+  document.getElementById('caRole').value = pu.role || 'Operador';
+  document.getElementById('caRoleSecondary').value = pu.roleSecondary || '';
+
+  // Default permissions based on role
+  const isLead = ['Coordinador','Supervisor','Líder de Equipo'].includes(pu.role);
+  document.getElementById('caPDash').checked      = true;
+  document.getElementById('caPGuardias').checked  = true;
+  document.getElementById('caPRotaciones').checked= true;
+  document.getElementById('caPPersonnel').checked = isLead;
+  document.getElementById('caPLines').checked     = false;
+  document.getElementById('caPDays').checked      = isLead;
+  document.getElementById('caPUsers').checked     = false;
+  document.getElementById('caPView').checked      = !isLead;
+
+  openModal('modalConfigApprove');
+};
+
+window.rejectFromConfig = function() {
+  if (!configApprovingId) return;
+  rejectUser(configApprovingId);
+  closeModal('modalConfigApprove');
+};
+
+window.confirmApprove = function() {
+  const id = configApprovingId;
+  const pu = (appData.pendingUsers || []).find(u => u.id === id);
+  if (!pu) return;
+
+  // Get configured values
+  const finalRole    = document.getElementById('caRole').value;
+  const finalRoleSec = document.getElementById('caRoleSecondary').value;
+  const perms = {
+    dashboard:  document.getElementById('caPDash').checked,
+    guardias:   document.getElementById('caPGuardias').checked,
+    rotaciones: document.getElementById('caPRotaciones').checked,
+    personnel:  document.getElementById('caPPersonnel').checked,
+    lines:      document.getElementById('caPLines').checked,
+    days:       document.getElementById('caPDays').checked,
+    users:      document.getElementById('caPUsers').checked,
+    view:       document.getElementById('caPView').checked,
+  };
+
+  // Create active user
+  const newUser = {
+    id: pu.id, username: pu.username, password: pu.password,
+    fullname: pu.fullname, cedula: pu.cedula,
+    role: 'employee', perms, lineId: pu.lineId, status: 'active'
+  };
+  appData.users.push(newUser);
+
+  // Auto-create in Personnel
+  const already = appData.personnel.find(p => p.cedula === pu.cedula);
+  if (!already) {
+    appData.personnel.push({
+      id: 'emp_' + pu.id, userId: pu.id,
+      name: pu.fullname, cedula: pu.cedula, lineId: pu.lineId,
+      role: finalRole, roleSecondary: finalRoleSec || null,
+      guardia: pu.guardia, turno: pu.turno,
+      diasLibres: pu.guardia === '7x7' ? 7 : 11,
+      fechaDescanso: pu.fechaDescanso,
+      esChofer: finalRole === 'Chofer' || finalRoleSec === 'Chofer'
+    });
+  }
+
+  // Remove from pending
+  appData.pendingUsers = appData.pendingUsers.filter(u => u.id !== id);
+
+  // Firebase notification
+  if (navigator.onLine) {
+    const nid = uid();
+    set(ref(db, 'notifications/' + nid), {
+      id: nid, type: 'approved', targetUser: pu.username,
+      message: '✅ Tu registro fue aprobado. Ya puedes ingresar.',
+      createdAt: new Date().toISOString(), read: false
+    }).catch(() => {});
+  }
+
+  pushData();
+  closeModal('modalConfigApprove');
+  renderAll();
+  toast(`✅ ${pu.fullname} aprobado como ${finalRole}`);
+  configApprovingId = null;
+};
 
 </script>
 </body>
