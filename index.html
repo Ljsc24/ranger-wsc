@@ -751,6 +751,12 @@ tbody tr:hover { background: rgba(201,168,76,.06) !important; box-shadow: inset 
 }
 .pending-configure-btn:hover { filter: brightness(1.15); }
 
+
+@keyframes pendingPulse {
+  0%,100% { box-shadow: 0 0 20px rgba(230,126,34,.15), inset 0 1px 0 rgba(255,255,255,.05); }
+  50%      { box-shadow: 0 0 30px rgba(230,126,34,.35), inset 0 1px 0 rgba(255,255,255,.08); }
+}
+
 </style>
 </head>
 <body>
@@ -773,7 +779,7 @@ tbody tr:hover { background: rgba(201,168,76,.06) !important; box-shadow: inset 
         <div class="login-badge"><div class="login-badge-inner">R</div></div>
         <div class="login-title">CONTROL DE PERSONAL<br>RANGER WSC</div>
         <div class="login-sub">Well Services Cavallino · Anzoátegui</div>
-        <div class="login-ver" id="loginVer">v5.3.1</div>
+        <div class="login-ver" id="loginVer">v5.3.2</div>
       </div>
       <div class="login-form">
         <div id="loginErr" class="login-err">⚠ Usuario o contraseña incorrectos</div>
@@ -1328,7 +1334,7 @@ tbody tr:hover { background: rgba(201,168,76,.06) !important; box-shadow: inset 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getDatabase, ref, set, get, onValue, update } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-const APP_VERSION = "5.3.1";
+const APP_VERSION = "5.3.2";
 const VERSION_URL = "https://ljsc24.github.io/ranger-wsc/version.json";
 const FB = { apiKey:"AIzaSyBVkbiHbEZxIiTTx4gdc2k1AL_gfPXDA-A",authDomain:"ranger-wsc.firebaseapp.com",databaseURL:"https://ranger-wsc-default-rtdb.firebaseio.com",projectId:"ranger-wsc",storageBucket:"ranger-wsc.firebasestorage.app",messagingSenderId:"359053578987",appId:"1:359053578987:web:8166d95f2532dd49bae4ae" };
 const fbApp = initializeApp(FB);
@@ -1364,8 +1370,7 @@ function syncFB(){
   onValue(ref(db,'data'),snap=>{
     if(snap.exists()){const d=snap.val();appData.lines=d.lines?Object.values(d.lines):[];appData.personnel=d.personnel?Object.values(d.personnel):[];appData.users=d.users?Object.values(d.users):[];saveCache();renderAll();}
     setSyncDot('online');
-    syncPendingUsers();
-    listenMasterNotifications();
+    if(currentUser?.role === 'master') loadAndWatchPending();
   },()=>setSyncDot('offline'));
 }
 function pushData(){
@@ -1373,7 +1378,10 @@ function pushData(){
   if(!navigator.onLine)return;
   setSyncDot('syncing');
   set(ref(db,'data'),{lines:toObj(appData.lines,'id'),personnel:toObj(appData.personnel,'id'),users:toObj(appData.users,'id')}).then(()=>setSyncDot('online')).catch(()=>setSyncDot('offline'));
-  if(appData.pendingUsers?.length){set(ref(db,'pendingUsers'),toObj(appData.pendingUsers,'id')).catch(()=>{});}
+  if(appData.pendingUsers?.length){
+    const pu = appData.pendingUsers.filter(u=>u&&u.id);
+    if(pu.length) set(ref(db,'pendingUsers'),toObj(pu,'id')).catch(()=>{});
+  }
 }
 function toObj(arr,k){const o={};arr.forEach(i=>o[i[k]]=i);return o;}
 
@@ -1435,7 +1443,19 @@ function startApp(){
   document.getElementById('headerSub').textContent=currentUser.role==='master'?'Master · Well Services Cavallino':currentUser.role==='supervisor'?'Supervisor · Well Services Cavallino':'Visualizador · Well Services Cavallino';
   if(currentUser.role==='master')document.getElementById('tabUsers').classList.remove('hidden');
   loadCache();renderAll();
-  if(navigator.onLine){setSyncDot('syncing');syncFB();checkVersion();}else setSyncDot('offline');
+  if(navigator.onLine){
+    setSyncDot('syncing');
+    syncFB();
+    checkVersion();
+    // Master: immediately load pendingUsers and listen for new ones
+    if(currentUser.role === 'master') {
+      loadAndWatchPending();
+    }
+  } else {
+    setSyncDot('offline');
+    // Load pending from cache for master
+    if(currentUser.role === 'master') renderPendingUsers();
+  }
   // Show profile tab for all non-master users
   if(currentUser.role !== 'master') {
     document.getElementById('tabProfile').classList.remove('hidden');
@@ -1671,13 +1691,22 @@ window.renderDashboard=function(){
     if (pendCount > 0) {
       alertEl.style.display = 'block';
       alertEl.innerHTML = `
-      <div onclick="switchView('users')" style="cursor:pointer;background:linear-gradient(135deg,rgba(230,126,34,.15),rgba(139,105,20,.08));border:1px solid rgba(230,126,34,.4);border-radius:8px;padding:.75rem 1rem;display:flex;align-items:center;gap:.75rem;">
-        <span style="font-size:1.3rem;">⏳</span>
-        <div>
-          <div style="font-size:.82em;font-weight:700;color:#F0A500;letter-spacing:.05em;">${pendCount} SOLICITUD${pendCount>1?'ES':''} PENDIENTE${pendCount>1?'S':''} DE APROBACIÓN</div>
-          <div style="font-size:.68em;color:var(--text-dim);margin-top:1px;">Toca aquí para ir a Usuarios y revisar</div>
+      <div onclick="switchView('users')" style="cursor:pointer;
+        background:linear-gradient(135deg,rgba(230,126,34,.18),rgba(139,105,20,.1));
+        border:1px solid rgba(230,126,34,.5);border-radius:10px;
+        padding:.85rem 1.1rem;display:flex;align-items:center;gap:.85rem;
+        box-shadow:0 0 20px rgba(230,126,34,.15),inset 0 1px 0 rgba(255,255,255,.05);
+        animation:pendingPulse 2s ease-in-out infinite;">
+        <span style="font-size:1.6rem;flex-shrink:0;">⏳</span>
+        <div style="flex:1;">
+          <div style="font-size:.85em;font-weight:700;color:#F0A500;letter-spacing:.06em;">
+            ${pendCount} SOLICITUD${pendCount>1?'ES':''} ESPERANDO APROBACIÓN
+          </div>
+          <div style="font-size:.7em;color:var(--text-dim);margin-top:3px;">
+            ${(appData.pendingUsers||[]).filter(u=>u.status==='pending').map(u=>u.fullname).join(', ')}
+          </div>
+          <div style="font-size:.65em;color:rgba(240,165,0,.6);margin-top:2px;">↗ Toca para ir a Usuarios y autorizar</div>
         </div>
-        <span style="margin-left:auto;font-size:1rem;color:#F0A500;">→</span>
       </div>`;
     } else {
       alertEl.style.display = 'none';
@@ -1889,7 +1918,10 @@ if(navigator.onLine){
     }
   }).catch(()=>{});
   get(ref(db,'pendingUsers')).then(s=>{
-    if(s.exists()){appData.pendingUsers=Object.values(s.val());saveCache();}
+    if(s.exists()){
+      appData.pendingUsers = Object.values(s.val()).filter(u=>u&&u.id);
+      saveCache();
+    }
   }).catch(()=>{});
 }
 
@@ -2005,7 +2037,7 @@ function submitRegister(username, password) {
 
   // Save to Firebase under pendingUsers
   if (navigator.onLine) {
-    const payload = arrayToObj(appData.pendingUsers, 'id');
+    const payload = toObj(appData.pendingUsers, 'id');
     set(ref(db, 'pendingUsers'), payload).catch(() => {});
 
     // Notify master via Firebase (write to notifications)
@@ -2345,13 +2377,37 @@ function listenMasterNotifications() {
 // Sync pendingUsers from Firebase
 function syncPendingUsers() {
   if (!navigator.onLine || currentUser?.role !== 'master') return;
+  loadAndWatchPending();
+}
+
+function loadAndWatchPending() {
+  // Real-time listener on /pendingUsers — fires immediately and on every change
   onValue(ref(db, 'pendingUsers'), snap => {
     if (snap.exists()) {
-      appData.pendingUsers = Object.values(snap.val());
-      saveCache();
-      renderPendingUsers();
+      const all = Object.values(snap.val());
+      appData.pendingUsers = all;
+    } else {
+      appData.pendingUsers = [];
     }
-  });
+    saveCache();
+    renderPendingUsers();
+    renderDashboard(); // refresh dashboard alert
+    // Show browser notification for new pending users
+    const pending = (appData.pendingUsers||[]).filter(u => u.status === 'pending');
+    if (pending.length > 0 && Notification.permission === 'granted') {
+      // Only notify once per session per user
+      const notifKey = 'jarvis_notified_' + pending.map(u=>u.id).join('_');
+      if (!sessionStorage.getItem(notifKey)) {
+        sessionStorage.setItem(notifKey, '1');
+        new Notification('⏳ Ranger WSC — Solicitud Pendiente', {
+          body: pending.length === 1
+            ? \`\${pending[0].fullname} quiere unirse. Revisa la pestaña Usuarios.\`
+            : \`\${pending.length} personas esperan aprobación. Revisa Usuarios.\`,
+          icon: './icon-192.png'
+        });
+      }
+    }
+  }, () => {});
 }
 
 // ══════════════════════════════════════════════════════════════
