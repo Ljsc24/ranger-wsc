@@ -1,1 +1,1 @@
-{"version": "5.3.1", "fecha": "2025-06-29", "notas": "Fix: líneas visibles en registro, alerta de pendientes en dashboard, badge en pestaña Usuarios"}
+{"version": "5.3.2", "fecha": "2025-06-29", "notas": "Fix crítico: registro guarda en Firebase correctamente, master ve pendientes en tiempo real, notificación push al registrarse alguien"}
