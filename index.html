@@ -779,7 +779,7 @@ tbody tr:hover { background: rgba(201,168,76,.06) !important; box-shadow: inset 
         <div class="login-badge"><div class="login-badge-inner">R</div></div>
         <div class="login-title">CONTROL DE PERSONAL<br>RANGER WSC</div>
         <div class="login-sub">Well Services Cavallino · Anzoátegui</div>
-        <div class="login-ver" id="loginVer">v5.3.2</div>
+        <div class="login-ver" id="loginVer">v5.3.3</div>
       </div>
       <div class="login-form">
         <div id="loginErr" class="login-err">⚠ Usuario o contraseña incorrectos</div>
@@ -1334,7 +1334,7 @@ tbody tr:hover { background: rgba(201,168,76,.06) !important; box-shadow: inset 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getDatabase, ref, set, get, onValue, update } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-const APP_VERSION = "5.3.2";
+const APP_VERSION = "5.3.3";
 const VERSION_URL = "https://ljsc24.github.io/ranger-wsc/version.json";
 const FB = { apiKey:"AIzaSyBVkbiHbEZxIiTTx4gdc2k1AL_gfPXDA-A",authDomain:"ranger-wsc.firebaseapp.com",databaseURL:"https://ranger-wsc-default-rtdb.firebaseio.com",projectId:"ranger-wsc",storageBucket:"ranger-wsc.firebasestorage.app",messagingSenderId:"359053578987",appId:"1:359053578987:web:8166d95f2532dd49bae4ae" };
 const fbApp = initializeApp(FB);
@@ -2399,10 +2399,11 @@ function loadAndWatchPending() {
       const notifKey = 'jarvis_notified_' + pending.map(u=>u.id).join('_');
       if (!sessionStorage.getItem(notifKey)) {
         sessionStorage.setItem(notifKey, '1');
-        new Notification('⏳ Ranger WSC — Solicitud Pendiente', {
-          body: pending.length === 1
-            ? \`\${pending[0].fullname} quiere unirse. Revisa la pestaña Usuarios.\`
-            : \`\${pending.length} personas esperan aprobación. Revisa Usuarios.\`,
+        const body = pending.length === 1
+            ? pending[0].fullname + ' quiere unirse. Revisa la pestaña Usuarios.'
+            : pending.length + ' personas esperan aprobación. Revisa Usuarios.';
+        new Notification('Ranger WSC — Solicitud Pendiente', {
+          body: body,
           icon: './icon-192.png'
         });
       }
