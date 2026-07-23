@@ -1,1 +1,1 @@
-{"version": "5.3.2", "fecha": "2025-06-29", "notas": "Fix crítico: registro guarda en Firebase correctamente, master ve pendientes en tiempo real, notificación push al registrarse alguien"}
+{"version": "5.3.3", "fecha": "2025-06-29", "notas": "Hotfix: error de sintaxis JS que impedía el login"}
