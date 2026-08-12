@@ -865,7 +865,7 @@ body.light-theme .stat-card:hover { transition: all .2s !important; }
         <div class="login-badge"><div class="login-badge-inner">R</div></div>
         <div class="login-title">CONTROL DE PERSONAL<br>RANGER WSC</div>
         <div class="login-sub">Well Services Cavallino · Anzoátegui</div>
-        <div class="login-ver" id="loginVer">v5.4.0</div>
+        <div class="login-ver" id="loginVer">v5.4.1</div>
       </div>
       <div class="login-form">
         <div id="loginErr" class="login-err">⚠ Usuario o contraseña incorrectos</div>
@@ -1013,6 +1013,11 @@ body.light-theme .stat-card:hover { transition: all .2s !important; }
       <div class="font-sep"></div>
       <button class="font-btn" id="fsLarge" onclick="setFS(1.18)">A+</button>
     </div>
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Cambiar tema claro/oscuro">
+      <span class="tt-icon moon">🌙</span>
+      <div class="tt-knob">🌙</div>
+      <span class="tt-icon sun">☀️</span>
+    </button>
     <div class="sync-dot online" id="syncDot" title="Estado de conexión"></div>
     <div class="clock" id="clockEl">--:--:--</div>
     <div class="user-chip" onclick="openModal('modalUserMenu')">
@@ -1420,7 +1425,7 @@ body.light-theme .stat-card:hover { transition: all .2s !important; }
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getDatabase, ref, set, get, onValue, update } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-const APP_VERSION = "5.4.0";
+const APP_VERSION = "5.4.1";
 const VERSION_URL = "https://ljsc24.github.io/ranger-wsc/version.json";
 const FB = { apiKey:"AIzaSyBVkbiHbEZxIiTTx4gdc2k1AL_gfPXDA-A",authDomain:"ranger-wsc.firebaseapp.com",databaseURL:"https://ranger-wsc-default-rtdb.firebaseio.com",projectId:"ranger-wsc",storageBucket:"ranger-wsc.firebasestorage.app",messagingSenderId:"359053578987",appId:"1:359053578987:web:8166d95f2532dd49bae4ae" };
 const fbApp = initializeApp(FB);
@@ -1499,6 +1504,33 @@ setInterval(()=>{ document.getElementById('clockEl').textContent=new Date().toLo
 // ── FONT SCALE ───────────────────────────────────────────────
 let curFS=parseFloat(localStorage.getItem('ranger_fs_v5'))||1;
 window.setFS=function(v){ curFS=v;localStorage.setItem('ranger_fs_v5',v);document.documentElement.style.setProperty('--fs',v);['fsSmall','fsNormal','fsLarge'].forEach(id=>document.getElementById(id).classList.remove('active'));document.getElementById(v<=.9?'fsSmall':v>=1.15?'fsLarge':'fsNormal').classList.add('active'); };
+
+// ── THEME SYSTEM ─────────────────────────────────────────────
+const THEME_KEY = 'ranger_theme_v1';
+let currentTheme = localStorage.getItem(THEME_KEY) || 'dark';
+
+function applyTheme(theme) {
+  currentTheme = theme;
+  localStorage.setItem(THEME_KEY, theme);
+  const toggle = document.getElementById('themeToggle');
+  if (theme === 'light') {
+    document.body.classList.add('light-theme');
+    if (toggle) { toggle.classList.add('light'); toggle.querySelector('.tt-knob').textContent = '☀️'; }
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content','#C9A84C');
+  } else {
+    document.body.classList.remove('light-theme');
+    if (toggle) { toggle.classList.remove('light'); toggle.querySelector('.tt-knob').textContent = '🌙'; }
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content','#C9A84C');
+  }
+}
+
+window.toggleTheme = function() {
+  applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+  toast(currentTheme === 'light' ? '☀️ Tema claro activado' : '🌙 Tema oscuro activado');
+};
+
+applyTheme(currentTheme);
+
 setFS(curFS);
 
 // ── LOGIN ────────────────────────────────────────────────────
