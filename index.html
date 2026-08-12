@@ -757,6 +757,92 @@ tbody tr:hover { background: rgba(201,168,76,.06) !important; box-shadow: inset 
   50%      { box-shadow: 0 0 30px rgba(230,126,34,.35), inset 0 1px 0 rgba(255,255,255,.08); }
 }
 
+
+/* ── LIGHT THEME ───────────────────────────────────────────── */
+body.light-theme {
+  --gold:#8B6914; --gold-l:#6B4F0A; --gold-d:#C9A84C; --gold-xl:#8B6914;
+  --gold-glow:rgba(139,105,20,.2);
+  --bg:#F5F0E8; --s1:#EDE8DC; --s2:#E5DFD0; --s3:#DDD6C4; --s4:#D4CCB8; --s5:#C8BFA8;
+  --text:#2C2416; --text-mid:#5C4A28; --text-dim:#8C7A50; --white:#1A1208;
+  --border:rgba(139,105,20,.25); --border-l:rgba(139,105,20,.12);
+  --shadow:0 8px 32px rgba(0,0,0,.12); --shadow-sm:0 2px 12px rgba(0,0,0,.08);
+}
+
+body.light-theme header {
+  background: linear-gradient(180deg,#EDE8DC,#E5DFD0) !important;
+  backdrop-filter: none;
+}
+body.light-theme .nav-bar { background: #EDE8DC; }
+body.light-theme .modal { background: rgba(240,235,225,.98) !important; }
+body.light-theme .form-input,
+body.light-theme .form-select,
+body.light-theme .lf-input,
+body.light-theme .search-input,
+body.light-theme .j-input,
+body.light-theme .j-select,
+body.light-theme .j-textarea { background: #E5DFD0; color: var(--text); }
+body.light-theme .crew-member { background: #DDD6C4; border-color: rgba(139,105,20,.15); }
+body.light-theme .stat-card   { background: #EDE8DC; }
+body.light-theme .line-card   { background: #EDE8DC; }
+body.light-theme .user-card   { background: #EDE8DC; }
+body.light-theme .guardia-card{ background: #EDE8DC; }
+body.light-theme .personnel-table-wrap { background: #EDE8DC; }
+body.light-theme thead th     { background: #DDD6C4; }
+body.light-theme tbody tr:hover { background: rgba(139,105,20,.06) !important; }
+body.light-theme .gp-card     { background: #EDE8DC; }
+body.light-theme .profile-card{ background: rgba(237,232,220,.9); }
+body.light-theme .uc-head     { background: rgba(139,105,20,.06); }
+body.light-theme .pending-item{ background: linear-gradient(135deg,rgba(230,126,34,.08),rgba(139,105,20,.04)) !important; }
+body.light-theme .font-ctrl,
+body.light-theme .user-chip   { background: #DDD6C4; }
+body.light-theme .filter-select,
+body.light-theme .j-select    { background: #DDD6C4; }
+body.light-theme .reg-box,
+body.light-theme .login-box,
+body.light-theme .j-modal     { background: rgba(237,232,220,.98) !important; }
+body.light-theme .pending-box { background: rgba(237,232,220,.98); }
+body.light-theme body::after  { color: rgba(139,105,20,.15); }
+
+/* Theme toggle button */
+.theme-toggle {
+  width: 34px; height: 20px;
+  background: var(--s4);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  transition: all .25s ease;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+}
+.theme-toggle:hover { border-color: var(--gold); }
+.theme-toggle .tt-knob {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--gold);
+  transition: all .25s cubic-bezier(.4,0,.2,1);
+  box-shadow: 0 1px 4px rgba(0,0,0,.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .55rem; line-height: 1;
+}
+.theme-toggle.light .tt-knob {
+  transform: translateX(14px);
+  background: linear-gradient(135deg,#8B6914,#C9A84C);
+}
+.theme-toggle .tt-icon { position:absolute; font-size:.55rem; }
+.theme-toggle .tt-icon.moon { left: 3px; opacity:.5; }
+.theme-toggle .tt-icon.sun  { right: 3px; opacity:.5; }
+
+/* Smooth theme transition */
+body, body * {
+  transition: background-color .3s ease, color .2s ease, border-color .2s ease !important;
+}
+/* Except animations — don't override those */
+body.light-theme .sync-dot,
+body.light-theme .stat-card:hover { transition: all .2s !important; }
+
 </style>
 </head>
 <body>
@@ -779,7 +865,7 @@ tbody tr:hover { background: rgba(201,168,76,.06) !important; box-shadow: inset 
         <div class="login-badge"><div class="login-badge-inner">R</div></div>
         <div class="login-title">CONTROL DE PERSONAL<br>RANGER WSC</div>
         <div class="login-sub">Well Services Cavallino · Anzoátegui</div>
-        <div class="login-ver" id="loginVer">v5.3.3</div>
+        <div class="login-ver" id="loginVer">v5.4.0</div>
       </div>
       <div class="login-form">
         <div id="loginErr" class="login-err">⚠ Usuario o contraseña incorrectos</div>
@@ -1334,7 +1420,7 @@ tbody tr:hover { background: rgba(201,168,76,.06) !important; box-shadow: inset 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getDatabase, ref, set, get, onValue, update } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-const APP_VERSION = "5.3.3";
+const APP_VERSION = "5.4.0";
 const VERSION_URL = "https://ljsc24.github.io/ranger-wsc/version.json";
 const FB = { apiKey:"AIzaSyBVkbiHbEZxIiTTx4gdc2k1AL_gfPXDA-A",authDomain:"ranger-wsc.firebaseapp.com",databaseURL:"https://ranger-wsc-default-rtdb.firebaseio.com",projectId:"ranger-wsc",storageBucket:"ranger-wsc.firebasestorage.app",messagingSenderId:"359053578987",appId:"1:359053578987:web:8166d95f2532dd49bae4ae" };
 const fbApp = initializeApp(FB);
