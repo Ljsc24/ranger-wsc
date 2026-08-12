@@ -1,1 +1,1 @@
-{"version": "5.3.3", "fecha": "2025-06-29", "notas": "Hotfix: error de sintaxis JS que impedía el login"}
+{"version": "5.4.0", "fecha": "2025-06-29", "notas": "Tema claro/oscuro con toggle en header y menú de usuario, transiciones suaves, preferencia guardada"}
