@@ -1934,28 +1934,36 @@ window.renderRotaciones=function(){
       if(hasConflict) cls+=' conflict';
       else if(isToday) cls+=' hoy';
       else if(isTomorrow) cls+=' manana';
+      // Group by line
+      const byLine={};
+      ps.forEach(p=>{
+        const lname=appData.lines.find(l=>l.id===p.lineId)?.name||'Sin línea';
+        if(!byLine[lname])byLine[lname]=[];
+        byLine[lname].push(p);
+      });
+      const choferCount=ps.filter(p=>p.esChofer||p.role==='Chofer'||p.roleSecondary==='Chofer').length;
       return `<div class="${cls}">
-        <div class="salida-date">
-          ${isToday?'🟢 HOY':isTomorrow?'🔵 MAÑANA':fmtDate(d)}
-          ${hasConflict?'<span class="badge b-conflict">⚠ Conflicto</span>':''}
-          ${chofersOff.length?`<span class="badge b-chofer">🚗 ${chofersOff.length} chofer${chofersOff.length>1?'es':''}</span>`:''}
+        <div class="salida-card-header">
+          <div class="salida-date-big">${isToday?'🟢 HOY':isTomorrow?'🔵 MAÑANA':fmtDate(d)}</div>
+          <div class="salida-count-pill">${ps.length} libre${ps.length>1?'s':''}</div>
         </div>
-        <div style="font-size:.64em;color:var(--text-dim);margin-bottom:.3rem;">${ps.length} persona${ps.length>1?'s':''} libres</div>
-        <div class="salida-people">
-          ${ps.slice(0,4).map(p=>{
-            const line=appData.lines.find(l=>l.id===p.lineId);
-            return `<div class="salida-person">
-              <div class="rot-av ${p.esChofer||p.role==='Chofer'?'av-chofer':p.role==='Líder de Equipo'?'av-leader':'av-crew'}">${ini(p.name)}</div>
-              <div style="min-width:0;flex:1;">
-                <div style="font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${p.name}</div>
-                <div style="font-size:.82em;color:var(--text-dim);">${line?.name||'—'} · ${p.role}${p.esChofer?' 🚗':''}</div>
-              </div>
-            </div>`;
-          }).join('')}
-          ${ps.length>4?`<div style="font-size:.7em;color:var(--text-dim);margin-top:.2rem;">+${ps.length-4} más</div>`:''}
-        </div>
+        ${hasConflict?`<div style="font-size:.63em;color:var(--red);margin-bottom:.35rem;font-weight:700;">⚠ ${hasConflict.msg}</div>`:''}
+        ${choferCount?`<div style="font-size:.62em;color:#42A5F5;margin-bottom:.3rem;">🚗 ${choferCount} chofer${choferCount>1?'es':''} libres</div>`:''}
+        ${Object.entries(byLine).map(([lname,lpeople])=>`
+        <div class="salida-line-group">
+          <div class="slg-label">${lname}</div>
+          <div class="slg-people">
+            ${lpeople.map(p=>{
+              const isChofer=p.esChofer||p.role==='Chofer'||p.roleSecondary==='Chofer';
+              const isLider=['Líder de Equipo','Coordinador','Supervisor'].includes(p.role);
+              const cls2=isChofer?'chofer-person':isLider?'lider-person':'normal-person';
+              const rk=getRankConfig(p.role);
+              return '<div class="slg-person '+cls2+'"><span style="font-size:.7rem;">'+rk.icon+'</span><div><div class="slg-name">'+p.name+'</div><div class="slg-role">'+p.role+(p.roleSecondary?' + '+p.roleSecondary:'')+(isChofer?' 🚗':'')+(p.guardia?' · '+p.guardia:'')+'</div></div></div>';
+            }).join('')}
+          </div>
+        </div>`).join('')}
       </div>`;
-    }).join('');
+    }).join('');');
   }
 
   // ROTATION TABLE
