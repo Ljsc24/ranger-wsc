@@ -843,6 +843,110 @@ body, body * {
 body.light-theme .sync-dot,
 body.light-theme .stat-card:hover { transition: all .2s !important; }
 
+
+/* ── ROTACIONES v2 ─────────────────────────────────────────── */
+.rot-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: .75rem;
+  margin-bottom: 1.1rem;
+}
+.rot-summary-card {
+  background: var(--s2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: .8rem 1rem;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+}
+.rot-summary-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+}
+.rot-summary-card.ok::before   { background: linear-gradient(90deg, #27AE60, #2ECC71); }
+.rot-summary-card.warn::before { background: linear-gradient(90deg, #E67E22, #F39C12); }
+.rot-summary-card.crit::before { background: linear-gradient(90deg, var(--red), #C0392B); }
+.rsc-line { font-family:'Cinzel',serif; font-size:.75em; font-weight:700;
+  color: var(--gold-l); letter-spacing:.08em; margin-bottom:.4rem; }
+.rsc-stat { font-family:'Orbitron',monospace; font-size:1.4em; font-weight:700;
+  line-height:1; margin-bottom:.2rem; }
+.rsc-stat.ok   { color: #2ECC71; }
+.rsc-stat.warn { color: #F0A500; }
+.rsc-stat.crit { color: var(--red); }
+.rsc-sub { font-size:.65em; color: var(--text-dim); letter-spacing:.08em; }
+.rsc-people { margin-top:.4rem; display:flex; flex-wrap:wrap; gap:.2rem; }
+.rsc-person-chip {
+  font-size:.6em; padding:.08rem .3rem;
+  background: rgba(201,168,76,.1);
+  border: 1px solid rgba(201,168,76,.2);
+  border-radius: 3px; color: var(--text-dim);
+}
+
+/* Salida card improvements */
+.salida-card-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:.55rem; }
+.salida-date-big { font-family:'Orbitron',monospace; font-size:.72em; font-weight:700;
+  color: var(--gold); letter-spacing:.05em; }
+.salida-count-pill {
+  background: rgba(201,168,76,.12);
+  border: 1px solid rgba(201,168,76,.25);
+  border-radius: 20px;
+  padding: .1rem .45rem;
+  font-size:.62em; font-weight:700; color: var(--gold);
+}
+.salida-line-group { margin-bottom:.4rem; }
+.slg-label { font-size:.6em; color: var(--text-dim); letter-spacing:.12em;
+  text-transform:uppercase; margin-bottom:.18rem; }
+.slg-people { display:flex; flex-direction:column; gap:.15rem; }
+.slg-person {
+  display: flex; align-items:center; gap:.35rem;
+  padding: .22rem .4rem;
+  background: rgba(255,255,255,.03);
+  border-radius: 4px;
+  border-left: 2px solid;
+}
+.slg-person.chofer-person { border-left-color: #42A5F5; background: rgba(66,165,245,.06); }
+.slg-person.lider-person  { border-left-color: var(--gold); background: rgba(201,168,76,.05); }
+.slg-person.normal-person { border-left-color: rgba(255,255,255,.12); }
+.slg-name { font-size:.72em; font-weight:600; color: var(--white); }
+.slg-role { font-size:.6em; color: var(--text-dim); }
+
+/* Conflict severity badges */
+.badge-crit   { background:rgba(231,76,60,.2);  color:#E74C3C; border:1px solid rgba(231,76,60,.4); }
+.badge-high   { background:rgba(230,126,34,.18); color:#F0A500; border:1px solid rgba(230,126,34,.4); }
+.badge-medium { background:rgba(52,152,219,.15); color:#5DADE2; border:1px solid rgba(52,152,219,.35); }
+
+/* Upcoming week strip */
+.week-strip {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: .4rem;
+  margin-bottom: 1.1rem;
+}
+.week-day {
+  background: var(--s2);
+  border: 1px solid var(--border-l);
+  border-radius: 7px;
+  padding: .5rem .4rem;
+  text-align: center;
+  position: relative;
+  min-height: 70px;
+  transition: var(--transition);
+}
+.week-day.has-conflict { border-color: rgba(231,76,60,.4); background: rgba(231,76,60,.04); }
+.week-day.today { border-color: var(--gold); background: rgba(201,168,76,.05); }
+.wd-name { font-size:.58em; color: var(--text-dim); letter-spacing:.1em; text-transform:uppercase; }
+.wd-num  { font-family:'Orbitron',monospace; font-size:.85em; font-weight:700;
+  color: var(--text); margin:.1rem 0 .25rem; }
+.week-day.today .wd-num { color: var(--gold); }
+.wd-off  { font-size:.6em; color: var(--text-dim); }
+.wd-conflict-dot {
+  position: absolute; top:.35rem; right:.35rem;
+  width:6px; height:6px; border-radius:50%;
+  background: var(--red); box-shadow:0 0 6px var(--red);
+}
+
 </style>
 </head>
 <body>
@@ -865,7 +969,7 @@ body.light-theme .stat-card:hover { transition: all .2s !important; }
         <div class="login-badge"><div class="login-badge-inner">R</div></div>
         <div class="login-title">CONTROL DE PERSONAL<br>RANGER WSC</div>
         <div class="login-sub">Well Services Cavallino · Anzoátegui</div>
-        <div class="login-ver" id="loginVer">v5.4.1</div>
+        <div class="login-ver" id="loginVer">v5.5.0</div>
       </div>
       <div class="login-form">
         <div id="loginErr" class="login-err">⚠ Usuario o contraseña incorrectos</div>
@@ -1059,27 +1163,35 @@ body.light-theme .stat-card:hover { transition: all .2s !important; }
 <!-- ROTACIONES -->
 <div class="view" id="view-rotaciones">
   <div class="page-title">
-    <div><h2>Rotaciones y Salidas</h2><p>CALENDARIO DE DÍAS LIBRES · DETECCIÓN DE CONFLICTOS</p></div>
+    <div><h2>Rotaciones y Salidas</h2><p>CALENDARIO DE DÍAS LIBRES · ANÁLISIS POR CUADRILLA</p></div>
+    <div style="display:flex;gap:.5rem;align-items:center;">
+      <select class="filter-select" id="rotFilterLine" onchange="renderRotaciones()">
+        <option value="">Todos los equipos</option>
+      </select>
+      <select class="filter-select" id="rotDays" onchange="renderRotaciones()">
+        <option value="14">14 días</option>
+        <option value="30" selected>30 días</option>
+        <option value="60">60 días</option>
+      </select>
+    </div>
   </div>
 
-  <!-- Conflict Alert -->
-  <div id="conflictAlert" style="display:none;"></div>
+  <!-- Conflict Alert Banner -->
+  <div id="conflictAlert" style="display:none;margin-bottom:1rem;"></div>
 
-  <!-- Próximas Salidas -->
-  <div class="section-divider"><h3>PRÓXIMAS SALIDAS</h3></div>
-  <div class="filters-bar" style="margin-bottom:.85rem;">
-    <span class="filter-label">Equipo:</span>
-    <select class="filter-select" id="rotFilterLine" onchange="renderRotaciones()"><option value="">Todos</option></select>
-    <span class="filter-label">Días a mostrar:</span>
-    <select class="filter-select" id="rotDays" onchange="renderRotaciones()">
-      <option value="14">14 días</option>
-      <option value="30" selected>30 días</option>
-      <option value="60">60 días</option>
-    </select>
-  </div>
+  <!-- Week at a glance -->
+  <div class="section-divider"><h3>PRÓXIMOS 7 DÍAS</h3></div>
+  <div class="week-strip" id="weekStrip"></div>
+
+  <!-- Per-line cuadrilla summary -->
+  <div class="section-divider"><h3>ESTADO DE CUADRILLAS</h3></div>
+  <div class="rot-summary-grid" id="cuadrillaGrid"></div>
+
+  <!-- Próximas Salidas by day -->
+  <div class="section-divider"><h3>CALENDARIO DE SALIDAS</h3></div>
   <div id="salidasGrid" class="salidas-grid"></div>
 
-  <!-- Tabla de Rotación -->
+  <!-- Rotation Table -->
   <div class="section-divider"><h3>TABLA DE ROTACIÓN POR PERSONA</h3></div>
   <div class="cal-controls">
     <div class="cal-nav">
@@ -1425,7 +1537,7 @@ body.light-theme .stat-card:hover { transition: all .2s !important; }
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getDatabase, ref, set, get, onValue, update } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-const APP_VERSION = "5.4.1";
+const APP_VERSION = "5.5.0";
 const VERSION_URL = "https://ljsc24.github.io/ranger-wsc/version.json";
 const FB = { apiKey:"AIzaSyBVkbiHbEZxIiTTx4gdc2k1AL_gfPXDA-A",authDomain:"ranger-wsc.firebaseapp.com",databaseURL:"https://ranger-wsc-default-rtdb.firebaseio.com",projectId:"ranger-wsc",storageBucket:"ranger-wsc.firebasestorage.app",messagingSenderId:"359053578987",appId:"1:359053578987:web:8166d95f2532dd49bae4ae" };
 const fbApp = initializeApp(FB);
@@ -1624,30 +1736,67 @@ function calcPatternDays(p, startDate, numDays){
   }
   return result;
 }
-function getConflicts(){
-  // Find days where 2+ choferes or vital people (lider+chofer) are off together
+
+function getRankConfig(role){
+  const R={'Coordinador':{icon:'⬡',color:'#FFD700'},'Supervisor':{icon:'★',color:'#C0C0C0'},
+    'Líder de Equipo':{icon:'▲',color:'#C9A84C'},'Chofer':{icon:'◈',color:'#42A5F5'},
+    'Operador':{icon:'◉',color:'#4CAF50'},'Mecánico':{icon:'⬟',color:'#FF9800'},
+    'Ayudante':{icon:'◇',color:'#78909C'},'Motorista':{icon:'⬢',color:'#1E88E5'}};
+  return R[role]||{icon:'○',color:'#78909C'};
+}
+
+function getConflicts(days=60){
   const conflicts=[];
   const today=new Date(); today.setHours(0,0,0,0);
-  for(let i=0;i<30;i++){
+  for(let i=0;i<days;i++){
     const d=new Date(today); d.setDate(d.getDate()+i);
     const dateStr=d.toISOString().split('T')[0];
-    // People off this day
-    const offPeople=appData.personnel.filter(p=>{
-      const pattern=calcPatternDays(p,d,1);
-      return pattern[0]==='libre';
+    const offPeople=appData.personnel.filter(p=>calcPatternDays(p,d,1)[0]==='libre');
+    const chofersOff=offPeople.filter(p=>p.esChofer||p.role==='Chofer'||p.roleSecondary==='Chofer');
+    const lideresOff=offPeople.filter(p=>['Líder de Equipo','Coordinador','Supervisor'].includes(p.role));
+
+    // Per-line cuadrilla analysis
+    appData.lines.forEach(line=>{
+      const lineOff=offPeople.filter(p=>p.lineId===line.id);
+      const lineTotal=appData.personnel.filter(p=>p.lineId===line.id).length;
+      const lineChoferes=chofersOff.filter(p=>p.lineId===line.id);
+      const lineLideres=lideresOff.filter(p=>p.lineId===line.id);
+      const pct=lineTotal>0?Math.round((lineOff.length/lineTotal)*100):0;
+
+      // Critical: >70% of line is off same day
+      if(lineTotal>=2 && pct>=70){
+        conflicts.push({date:d,dateStr,type:'cuadrilla',severity:'critical',lineId:line.id,lineName:line.name,people:lineOff,
+          msg:`⚠ Cuadrilla ${line.name} sin personal: ${lineOff.length}/${lineTotal} libres (${pct}%)`});
+      }
+      // 2+ choferes same line off
+      if(lineChoferes.length>=2){
+        conflicts.push({date:d,dateStr,type:'choferes',severity:'high',lineId:line.id,lineName:line.name,people:lineChoferes,
+          msg:`${lineChoferes.length} choferes de ${line.name} libres el mismo día`});
+      }
+      // Chofer + Líder same line off
+      if(lineChoferes.length>=1 && lineLideres.length>=1){
+        conflicts.push({date:d,dateStr,type:'vital',severity:'high',lineId:line.id,lineName:line.name,people:[...lineChoferes,...lineLideres],
+          msg:`Chofer + Líder libres en ${line.name} — cuadrilla sin mando ni transporte`});
+      }
+      // All leaders of line off
+      if(lineLideres.length>=1 && appData.personnel.filter(p=>p.lineId===line.id&&['Líder de Equipo','Coordinador','Supervisor'].includes(p.role)).length===lineLideres.length){
+        conflicts.push({date:d,dateStr,type:'sinlider',severity:'medium',lineId:line.id,lineName:line.name,people:lineLideres,
+          msg:`${line.name} sin líder el ${dateStr}`});
+      }
     });
-    const chofersOff=offPeople.filter(p=>p.esChofer||p.role==='Chofer');
-    const lideresOff=offPeople.filter(p=>p.role==='Líder de Equipo');
-    // Conflict: 2+ choferes off same day
-    if(chofersOff.length>=2) conflicts.push({date:d,dateStr,type:'choferes',people:chofersOff,msg:`${chofersOff.length} choferes libres el mismo día`});
-    // Conflict: chofer + lider same line off
-    chofersOff.forEach(ch=>{
-      lideresOff.filter(l=>l.lineId===ch.lineId).forEach(li=>{
-        conflicts.push({date:d,dateStr,type:'vital',people:[ch,li],msg:`Chofer + Líder de equipo libres el mismo día (${appData.lines.find(x=>x.id===ch.lineId)?.name||''})`});
-      });
-    });
+
+    // Global: 2+ choferes across all lines off (transport risk)
+    if(chofersOff.length>=2 && !appData.lines.some(l=>chofersOff.filter(p=>p.lineId===l.id).length>=2)){
+      conflicts.push({date:d,dateStr,type:'choferes-global',severity:'medium',people:chofersOff,
+        msg:`${chofersOff.length} choferes de distintas líneas libres: riesgo de transporte`});
+    }
   }
-  return conflicts;
+  // Deduplicate by dateStr+type+lineId
+  const seen=new Set();
+  return conflicts.filter(cf=>{
+    const key=cf.dateStr+(cf.type||'')+(cf.lineId||'');
+    if(seen.has(key))return false; seen.add(key); return true;
+  });
 }
 
 // ── ROTACIONES VIEW ──────────────────────────────────────────
@@ -1657,8 +1806,11 @@ window.renderRotaciones=function(){
   const numDays=parseInt(document.getElementById('rotDays')?.value||30);
   const today=new Date(); today.setHours(0,0,0,0);
 
-  // Conflict alert
-  const conflicts=getConflicts();
+  // Compute conflicts once, reuse everywhere
+  const allConflicts=getConflicts(Math.max(numDays,30));
+
+  // Conflict alert — use allConflicts
+  const conflicts=allConflicts;
   const alertEl=document.getElementById('conflictAlert');
   if(conflicts.length){
     const unique=conflicts.slice(0,5);
@@ -1693,6 +1845,63 @@ window.renderRotaciones=function(){
         <button class="btn btn-danger btn-sm" style="margin-left:auto;" onclick="switchView('rotaciones')">Ver →</button>
       </div>`;
     } else dc.innerHTML='';
+  }
+
+  // ── WEEK STRIP (7 days) ──────────────────────────────────
+  const weekEl=document.getElementById('weekStrip');
+  if(weekEl){
+    const dayNames=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+    weekEl.innerHTML=[...Array(7)].map((_,i)=>{
+      const d=new Date(today); d.setDate(d.getDate()+i);
+      const ds=d.toISOString().split('T')[0];
+      const offToday=appData.personnel.filter(p=>calcPatternDays(p,d,1)[0]==='libre');
+      const lineOff=fl?offToday.filter(p=>p.lineId===fl):offToday;
+      const dayConflicts=allConflicts.filter(cf=>cf.dateStr===ds);
+      const isToday=i===0;
+      return `<div class="week-day${isToday?' today':''}${dayConflicts.length?' has-conflict':''}">
+        ${dayConflicts.length?'<div class="wd-conflict-dot"></div>':''}
+        <div class="wd-name">${dayNames[d.getDay()]}</div>
+        <div class="wd-num">${d.getDate()}</div>
+        <div class="wd-off" style="color:${lineOff.length>0?'var(--gold)':'var(--text-dim)'};">${lineOff.length>0?lineOff.length+' libre'+(lineOff.length>1?'s':''):'—'}</div>
+        ${dayConflicts.length?`<div style="font-size:.55em;color:var(--red);margin-top:.15rem;">⚠ conflicto</div>`:''}
+      </div>`;
+    }).join('');
+  }
+
+  // ── CUADRILLA SUMMARY per line ────────────────────────────
+  const cuadEl=document.getElementById('cuadrillaGrid');
+  if(cuadEl){
+    const linesToShow=fl?appData.lines.filter(l=>l.id===fl):appData.lines;
+    const next14=[...Array(14)].map((_,i)=>{const d=new Date(today);d.setDate(d.getDate()+i);return d;});
+    cuadEl.innerHTML=linesToShow.map(line=>{
+      const crew=appData.personnel.filter(p=>p.lineId===line.id);
+      if(!crew.length) return '';
+      // Find worst day (most people off) in next 14
+      let maxOff=0, maxDate='', worstPeople=[];
+      next14.forEach(d=>{
+        const off=crew.filter(p=>calcPatternDays(p,d,1)[0]==='libre');
+        if(off.length>maxOff){maxOff=off.length;maxDate=d.toISOString().split('T')[0];worstPeople=off;}
+      });
+      const pct=crew.length>0?Math.round((maxOff/crew.length)*100):0;
+      const severity=pct>=70?'crit':pct>=40?'warn':'ok';
+      const todayOff=crew.filter(p=>calcPatternDays(p,today,1)[0]==='libre');
+      const lineConflicts=allConflicts.filter(cf=>cf.lineId===line.id);
+      return `<div class="rot-summary-card ${severity}">
+        <div class="rsc-line">${line.icon||'⚙️'} ${line.name} · ${line.unit||''}</div>
+        <div style="display:flex;gap:.75rem;align-items:flex-end;margin-bottom:.35rem;">
+          <div>
+            <div class="rsc-stat ${todayOff.length>0?(todayOff.length/crew.length>0.5?'crit':'warn'):'ok'}">${crew.length-todayOff.length}/${crew.length}</div>
+            <div class="rsc-sub">EN CAMPO HOY</div>
+          </div>
+          <div>
+            <div class="rsc-stat ${severity}">${pct}%</div>
+            <div class="rsc-sub">MAX LIBRES (14d)</div>
+          </div>
+        </div>
+        ${lineConflicts.length?`<div style="font-size:.65em;color:var(--red);margin-bottom:.3rem;">⚠ ${lineConflicts.length} conflicto${lineConflicts.length>1?'s':''} en ${14}d</div>`:''}
+        ${todayOff.length?`<div class="rsc-people">${todayOff.map(p=>`<span class="rsc-person-chip">${p.name.split(' ')[0]}</span>`).join('')}</div><div style="font-size:.6em;color:var(--text-dim);margin-top:.2rem;">Libres hoy</div>`:'<div style="font-size:.65em;color:var(--green);">✅ Cuadrilla completa hoy</div>'}
+      </div>`;
+    }).join('') || '<div style="color:var(--text-dim);font-size:.8em;">Sin líneas configuradas</div>';
   }
 
   // PRÓXIMAS SALIDAS GRID
